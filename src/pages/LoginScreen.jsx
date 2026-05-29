@@ -25,7 +25,7 @@ const LoginPage = () => {
       <div className="max-w-md w-full">
         {/* Logo Section */}
         <div className="text-center mb-6">
-          <div className="text-5xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+          <div className="text-5xl font-bold bg-linear-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
             BETX
           </div>
           <p className="text-gray-400 text-sm mt-2 tracking-wide">INDIA'S PREMIUM CASINO</p>
@@ -101,7 +101,7 @@ const LoginPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold py-3 rounded-xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-linear-to-r from-yellow-500 to-orange-500 text-white font-bold py-3 rounded-xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? 'LOGGING IN...' : 'LOGIN TO PLAY →'}
             </button>

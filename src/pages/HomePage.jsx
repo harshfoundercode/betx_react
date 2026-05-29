@@ -854,7 +854,7 @@ const HomePage = () => {
                 <>
                   <Link
                     to="/login"
-                    className="group relative overflow-hidden flex items-center justify-center px-6 py-2 rounded-2xl font-semibold text-white bg-gradient-to-r from-[#F25335] to-[#F76921] shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="group relative overflow-hidden flex items-center justify-center px-6 py-2 rounded-2xl font-semibold text-white bg-linear-to-r from-[#F25335] to-[#F76921] shadow-lg hover:shadow-xl transition-all duration-300"
                   >
                     <span className="relative z-10">Login</span>
                     <div className="absolute inset-0">
@@ -901,7 +901,7 @@ const HomePage = () => {
               <div className="space-y-3">
                 <Link
                   to="/login"
-                  className="group relative overflow-hidden flex items-center justify-center px-6 py-2 rounded-2xl font-semibold text-white bg-gradient-to-r from-[#F25335] to-[#F76921] shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="group relative overflow-hidden flex items-center justify-center px-6 py-2 rounded-2xl font-semibold text-white bg-linear-to-r from-[#F25335] to-[#F76921] shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <span className="relative z-10">Login</span>
                   <div className="absolute inset-0">
@@ -963,7 +963,7 @@ const HomePage = () => {
                     <span className="text-sm"> ▶ PLAY AVIATOR</span>
                   </span>
                   {/* Shine */}
-                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12"></span>
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/40 to-transparent skew-x-12"></span>
                 </button>
 
                 {/* Multiplier */}
@@ -974,7 +974,7 @@ const HomePage = () => {
             </div>
 
             {/* Red Glow */}
-            <div className="absolute inset-0 rounded-[32px] shadow-[0_0_80px_rgba(255,0,0,0.15)] pointer-events-none" />
+            <div className="absolute inset-0 rounded-4xl shadow-[0_0_80px_rgba(255,0,0,0.15)] pointer-events-none" />
           </div>
 
           {/* three grid */}
@@ -1079,10 +1079,10 @@ const HomePage = () => {
                     {section.games.map((game) => (
                       <div
                         key={game.id}
-                        className={`bg-gradient-to-br ${game.bg} rounded-[30px] p-6 min-h-65 relative overflow-hidden border-2 border-white/10 shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:border-yellow-500/50 cursor-pointer group`}
+                        className={`bg-linear-to-br ${game.bg} rounded-[30px] p-6 min-h-65 relative overflow-hidden border-2 border-white/10 shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:border-yellow-500/50 cursor-pointer group`}
                       >
                         {/* Animated shine effect on hover */}
-                        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
+                        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
                         
                         <div className="flex justify-between mb-8">
                           <span className="px-3 py-1 rounded-full bg-black/20 text-green-300 text-xs group-hover:bg-green-500/30 transition-all duration-300">
@@ -1134,7 +1134,7 @@ const HomePage = () => {
                         className={`bg-linear-to-br ${game.bg} rounded-[28px] p-5 text-center transition-all duration-500 hover:scale-105 hover:shadow-2xl cursor-pointer group`}
                       >
                         {/* Animated glow effect on hover */}
-                        <div className="absolute inset-0 rounded-[28px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-yellow-500/20 to-transparent pointer-events-none"></div>
+                        <div className="absolute inset-0 rounded-[28px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-linear-to-r from-yellow-500/20 to-transparent pointer-events-none"></div>
                         
                         {game.isEmoji ? (
                           <div className="w-10 h-10 flex items-center justify-center mx-auto mb-6 text-5xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
@@ -1239,8 +1239,8 @@ const HomePage = () => {
                     <Link
                       key={idx}
                       to={item.path}
-                      className={`relative flex flex-col items-center justify-center min-w-[65px] py-2 rounded-2xl transition-all duration-300 hover:scale-110 ${item.active
-                          ? "bg-gradient-to-b from-[#F8B400]/40 to-[#F8B400]/10 text-[#F8B400] shadow-[0_0_20px_rgba(248,180,0,0.35)]"
+                      className={`relative flex flex-col items-center justify-center min-w-16.25 py-2 rounded-2xl transition-all duration-300 hover:scale-110 ${item.active
+                          ? "bg-linear-to-b from-[#F8B400]/40 to-[#F8B400]/10 text-[#F8B400] shadow-[0_0_20px_rgba(248,180,0,0.35)]"
                           : "text-gray-500 hover:text-gray-300 hover:bg-white/5"
                         }`}
                     >
