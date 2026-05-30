@@ -1,138 +1,650 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Eye, EyeOff, Shield, Sun } from 'lucide-react';
+// import { useState } from "react";
+// import {
+//   User,
+//   Lock,
+//   Eye,
+//   EyeOff,
+//   LogIn,
+//   ArrowRight,
+// } from "lucide-react";
 
-const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+// export default function LoginForm() {
+//   const [showPassword, setShowPassword] = useState(false);
+
+//   const [form, setForm] = useState({
+//     username: "",
+//     password: "",
+//   });
+
+//   const [errors, setErrors] = useState({});
+
+//   const validate = () => {
+//     const newErrors = {};
+
+//     if (!form.username.trim()) {
+//       newErrors.username = "Username required";
+//     }
+
+//     if (!form.password.trim()) {
+//       newErrors.password = "Password required";
+//     }
+
+//     setErrors(newErrors);
+
+//     return Object.keys(newErrors).length === 0;
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+
+//     if (!validate()) return;
+
+//     console.log(form);
+//   };
+
+//   return (
+//     <form
+//       onSubmit={handleSubmit}
+//       className="space-y-5"
+//     >
+//       {/* Username */}
+//       <div>
+//         <div className="flex items-center gap-2 mb-2">
+//           <User
+//             size={14}
+//             className="text-[#D4A017]"
+//           />
+
+//           <span
+//             className="
+//               text-xs
+//               font-bold
+//               tracking-[1px]
+//               text-gray-400
+//               uppercase
+//             "
+//           >
+//             Username
+//           </span>
+//         </div>
+
+//         <div className="group relative">
+//           <User
+//             size={18}
+
+//             className="
+//               absolute
+//               left-5
+//               top-1/2
+//               -translate-y-1/2
+//               text-gray-500
+
+//               transition-colors
+//               duration-300
+//               group-focus-within:text-[#F8B400]
+//             "
+//           />
+
+//           <input
+//             type="text"
+//             placeholder="Enter username"
+//             autoComplete="off"
+//             value={form.username}
+//             onChange={(e) =>
+//               setForm({
+//                 ...form,
+//                 username: e.target.value,
+//               })
+//             }
+//             className="
+//               w-full
+//               h-[50px]
+//               rounded-[18px]
+//               bg-[#2A344B]
+//               border
+//               border-[#3A4765]
+//               pl-14
+//               pr-4
+//               text-white
+//               font-medium
+
+//               placeholder:text-gray-500
+
+//               transition-all
+//               duration-300
+
+//               focus:outline-none
+//               focus:border-[#F8B400]
+//               focus:bg-[#1F273A]
+
+//               focus:shadow-[0_0_0_1px_rgba(248,180,0,0.25),0_0_25px_rgba(248,180,0,0.15)]
+//             "
+//           />
+//         </div>
+
+//         {errors.username && (
+//           <p className="text-red-400 text-xs mt-1">
+//             {errors.username}
+//           </p>
+//         )}
+//       </div>
+
+//       {/* Password */}
+//       <div>
+//         <div className="flex items-center gap-2 mb-2">
+//           <Lock
+//             size={14}
+//             className="text-[#D4A017]"
+//           />
+
+//           <span
+//             className="
+//               text-xs
+//               font-bold
+//               tracking-[1px]
+//               text-gray-400
+//               uppercase
+//             "
+//           >
+//             Password
+//           </span>
+//         </div>
+
+//         <div className="group relative">
+//           <Lock
+//             size={18}
+//             className="
+//               absolute
+//               left-5
+//               top-1/2
+//               -translate-y-1/2
+//               text-gray-500
+//               transition-colors
+//               duration-300
+//               group-focus-within:text-[#F8B400]
+//             "
+//           />
+
+//           <input
+//             type={
+//               showPassword
+//                 ? "text"
+//                 : "password"
+//             }
+//             placeholder="••••••"
+//             autoComplete="off"
+//             value={form.password}
+//             onChange={(e) =>
+//               setForm({
+//                 ...form,
+//                 password: e.target.value,
+//               })
+//             }
+//             className="
+//               w-full
+//               h-[50px]
+//               rounded-[18px]
+//               bg-[#2A344B]
+//               border
+//               border-[#3A4765]
+//               pl-14
+//               pr-14
+//               text-white
+//               font-medium
+
+//               placeholder:text-gray-500
+
+//               transition-all
+//               duration-300
+
+//               focus:outline-none
+//               focus:border-[#F8B400]
+//               focus:bg-[#1F273A]
+
+//               focus:shadow-[0_0_0_1px_rgba(248,180,0,0.25),0_0_25px_rgba(248,180,0,0.15)]
+//             "
+//           />
+
+//           <button
+//             type="button"
+//             onClick={() =>
+//               setShowPassword(
+//                 !showPassword
+//               )
+//             }
+//             className="
+//               absolute
+//               right-5
+//               top-1/2
+//               -translate-y-1/2
+//               text-gray-500
+//               hover:text-gray-300
+//             "
+//           >
+//             {showPassword ? (
+//               <EyeOff size={18} />
+//             ) : (
+//               <Eye size={18} />
+//             )}
+//           </button>
+//         </div>
+
+//         {errors.password && (
+//           <p className="text-red-400 text-xs mt-1">
+//             {errors.password}
+//           </p>
+//         )}
+//       </div>
+
+//       {/* Forgot Password */}
+//       <div className="flex justify-end">
+//         <button
+//           type="button"
+//           className="
+//             text-[#D4A017]
+//             text-xs
+//             font-semibold
+//             hover:text-yellow-400
+//             transition-colors
+//           "
+//         >
+//           Forgot Password?
+//         </button>
+//       </div>
+
+//       {/* Login Button */}
+//       <button
+//         type="submit"
+//         className="
+//           relative
+//           overflow-hidden
+//           w-full
+//           h-[50px]
+//           rounded-[20px]
+
+//           bg-gradient-to-r
+//           from-[#F59E0B]
+//           to-[#FBBF24]
+
+//           text-black
+//           font-black
+//           tracking-[1px]
+
+
+//           shadow-[0_0_35px_rgba(245,158,11,.35)]
+
+//           transition-all
+//           duration-300
+
+//           hover:shadow-[0_0_45px_rgba(245,158,11,.55)]
+//           hover:scale-[1.01]
+//         "
+//       >
+//         <span className="flex items-center justify-center gap-3">
+//           <LogIn size={20} />
+//           LOGIN TO PLAY
+//           <ArrowRight size={20} />
+//         </span>
+//       </button>
+
+//       {/* Create Account */}
+//       <div className="text-center">
+//         <span className="text-gray-500 text-[11px]">
+//           New player?
+//         </span>
+
+//         <button
+//           type="button"
+//           className="
+//       ml-1
+//       text-yellow-400
+//       text-[11px]
+//       font-semibold
+//       hover:text-yellow-300
+//     "
+//         >
+//           Create Account →
+//         </button>
+//       </div>
+//     </form>
+//   );
+// }
+import { useState } from "react";
+import {
+  User,
+  Lock,
+  Eye,
+  EyeOff,
+  LogIn,
+  ArrowRight,
+} from "lucide-react";
+
+export default function LoginForm() {
+  const [showPassword, setShowPassword] =
+    useState(false);
+
+  const [form, setForm] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!form.username.trim()) {
+      newErrors.username = "Username required";
+    }
+
+    if (!form.password.trim()) {
+      newErrors.password = "Password required";
+    }
+
+    setErrors(newErrors);
+
+    return (
+      Object.keys(newErrors).length === 0
+    );
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    // Static login - no API
-    setTimeout(() => {
-      console.log('Login attempted with:', { username, password });
-      setLoading(false);
-      // You can add navigation here after static check
-      // if (username === 'harsh') navigate('/');
-    }, 1000);
+
+    if (!validate()) return;
+
+    console.log(form);
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center px-4 py-8">
-      <div className="max-w-md w-full">
-        {/* Logo Section */}
-        <div className="text-center mb-6">
-          <div className="text-5xl font-bold bg-linear-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-            BETX
-          </div>
-          <p className="text-gray-400 text-sm mt-2 tracking-wide">INDIA'S PREMIUM CASINO</p>
+    <form
+      onSubmit={handleSubmit}
+      autoComplete="off"
+      className="space-y-5"
+    >
+      {/* Chrome Autofill Hack */}
+      <input
+        type="text"
+        name="fake_username"
+        autoComplete="username"
+        className="hidden"
+      />
+
+      <input
+        type="password"
+        name="fake_password"
+        autoComplete="current-password"
+        className="hidden"
+      />
+
+      {/* Username */}
+      <div>
+        <div className="flex items-center gap-2 mb-2">
+          <User
+            size={14}
+            className="text-[#D4A017]"
+          />
+
+          <span
+            className="
+              text-xs
+              font-bold
+              tracking-[1px]
+              text-gray-400
+              uppercase
+            "
+          >
+            Username
+          </span>
         </div>
 
-        {/* Tabs */}
-        <div className="flex gap-4 mb-8 border-b border-gray-700">
-          <button className="text-yellow-400 font-semibold pb-3 border-b-2 border-yellow-400">
-            SIGN IN
-          </button>
-          <Link to="/register" className="text-gray-400 font-semibold pb-3 hover:text-gray-300 transition">
-            REGISTER
-          </Link>
+        <div className="group relative">
+          <User
+            size={18}
+            className="
+              absolute
+              left-5
+              top-1/2
+              -translate-y-1/2
+              text-gray-500
+              transition-colors
+              duration-300
+              group-focus-within:text-[#F8B400]
+            "
+          />
+
+          <input
+            type="text"
+            name="login_user"
+            autoComplete="new-password"
+            spellCheck={false}
+            placeholder="Enter username"
+            value={form.username}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                username:
+                  e.target.value,
+              })
+            }
+            className="
+              w-full
+              h-[50px]
+              rounded-[18px]
+              bg-[#2A344B]
+              border
+              border-[#3A4765]
+              pl-14
+              pr-4
+              text-white
+              text-sm
+              font-medium
+
+              placeholder:text-gray-500
+
+              transition-all
+              duration-300
+
+              focus:outline-none
+              focus:border-[#F8B400]
+              focus:bg-[#1F273A]
+
+              focus:shadow-[0_0_0_1px_rgba(248,180,0,0.25),0_0_25px_rgba(248,180,0,0.15)]
+
+              [&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#2A344B]
+              [&:-webkit-autofill]:[-webkit-text-fill-color:white]
+            "
+          />
         </div>
 
-        {/* Security Badges */}
-        <div className="flex items-center justify-center gap-3 mb-8">
-          <div className="flex items-center gap-2 bg-gray-800/50 px-3 py-1.5 rounded-full">
-            <Shield className="w-4 h-4 text-green-400" />
-            <span className="text-xs text-gray-300">256-BIT SSL ENCRYPTED</span>
-          </div>
-          <div className="bg-green-500/20 px-3 py-1.5 rounded-full">
-            <span className="text-xs text-green-400 font-semibold">VERIFIED ✓</span>
-          </div>
-        </div>
-
-        {/* Login Form */}
-        <div className="bg-gray-800/30 backdrop-blur-sm rounded-2xl p-8 border border-gray-700">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Username Field */}
-            <div>
-              <label className="block text-gray-300 mb-2 text-sm font-medium">USERNAME</label>
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="w-full bg-gray-900/80 border border-gray-600 rounded-xl py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-all"
-                placeholder="Enter your username"
-                required
-              />
-            </div>
-
-            {/* Password Field */}
-            <div>
-              <label className="block text-gray-300 mb-2 text-sm font-medium">PASSWORD</label>
-              <div className="relative">
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-gray-900/80 border border-gray-600 rounded-xl py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 transition-all"
-                  placeholder="Enter your password"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
-                >
-                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                </button>
-              </div>
-            </div>
-
-            {/* Forgot Password Link */}
-            <div className="text-right">
-              <button type="button" className="text-yellow-400 text-sm hover:text-yellow-300 transition">
-                Forgot Password?
-              </button>
-            </div>
-
-            {/* Login Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-linear-to-r from-yellow-500 to-orange-500 text-white font-bold py-3 rounded-xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            >
-              {loading ? 'LOGGING IN...' : 'LOGIN TO PLAY →'}
-            </button>
-
-            {/* Create Account Link */}
-            <div className="text-center mt-4">
-              <p className="text-gray-400 text-sm">
-                New player?{' '}
-                <Link to="/register" className="text-yellow-400 hover:text-yellow-300 font-semibold">
-                  Create Account →
-                </Link>
-              </p>
-            </div>
-          </form>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-6 text-center">
-          <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
-            <span>Secure</span>
-            <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
-            <span>Instant</span>
-            <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
-            <span>Fair Play</span>
-          </div>
-        </div>
-
-        
+        {errors.username && (
+          <p className="text-red-400 text-xs mt-1">
+            {errors.username}
+          </p>
+        )}
       </div>
-    </div>
-  );
-};
 
-export default LoginPage;
+      {/* Password */}
+      <div>
+        <div className="flex items-center gap-2 mb-2">
+          <Lock
+            size={14}
+            className="text-[#D4A017]"
+          />
+
+          <span
+            className="
+              text-xs
+              font-bold
+              tracking-[1px]
+              text-gray-400
+              uppercase
+            "
+          >
+            Password
+          </span>
+        </div>
+
+        <div className="group relative">
+          <Lock
+            size={18}
+            className="
+              absolute
+              left-5
+              top-1/2
+              -translate-y-1/2
+              text-gray-500
+              transition-colors
+              duration-300
+              group-focus-within:text-[#F8B400]
+            "
+          />
+
+          <input
+            type={
+              showPassword
+                ? "text"
+                : "password"
+            }
+            name="login_pass"
+            autoComplete="new-password"
+            spellCheck={false}
+            placeholder="••••••"
+            value={form.password}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                password:
+                  e.target.value,
+              })
+            }
+            className="
+              w-full
+              h-[50px]
+              rounded-[18px]
+              bg-[#2A344B]
+              border
+              border-[#3A4765]
+              pl-14
+              pr-14
+              text-white
+              text-sm
+              font-medium
+
+              placeholder:text-gray-500
+
+              transition-all
+              duration-300
+
+              focus:outline-none
+              focus:border-[#F8B400]
+              focus:bg-[#1F273A]
+
+              focus:shadow-[0_0_0_1px_rgba(248,180,0,0.25),0_0_25px_rgba(248,180,0,0.15)]
+
+              [&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#2A344B]
+              [&:-webkit-autofill]:[-webkit-text-fill-color:white]
+            "
+          />
+
+          <button
+            type="button"
+            onClick={() =>
+              setShowPassword(
+                !showPassword
+              )
+            }
+            className="
+              absolute
+              right-5
+              top-1/2
+              -translate-y-1/2
+              text-gray-500
+              hover:text-gray-300
+            "
+          >
+            {showPassword ? (
+              <EyeOff size={18} />
+            ) : (
+              <Eye size={18} />
+            )}
+          </button>
+        </div>
+
+        {errors.password && (
+          <p className="text-red-400 text-xs mt-1">
+            {errors.password}
+          </p>
+        )}
+      </div>
+
+      {/* Forgot Password */}
+      <div className="flex justify-end">
+        <button
+          type="button"
+          className="
+            text-[#D4A017]
+            text-xs
+            font-semibold
+            hover:text-yellow-400
+            transition-colors
+          "
+        >
+          Forgot Password?
+        </button>
+      </div>
+
+      {/* Login Button */}
+      <button
+        type="submit"
+        className="
+          w-full
+          h-12.5
+          rounded-[18px]
+
+          bg-linear-to-r
+       from-[#E38508]
+          to-[#F9B41C]
+
+          text-black
+          text-sm
+          font-black
+          tracking-[1px]
+
+          shadow-[0_0_35px_rgba(245,158,11,.35)]
+
+          transition-all
+          duration-300
+
+          hover:shadow-[0_0_45px_rgba(245,158,11,.55)]
+        "
+      >
+        <span className="flex items-center justify-center gap-2">
+          <LogIn size={18} />
+          LOGIN TO PLAY
+          <ArrowRight size={18} />
+        </span>
+      </button>
+
+      {/* Register Link */}
+      <div className="text-center">
+        <span className="text-gray-500 text-[11px]">
+          New player?
+        </span>
+
+        <button
+          type="button"
+          className="
+            ml-1
+            text-yellow-400
+            text-[11px]
+            font-semibold
+            hover:text-yellow-300
+          "
+        >
+          Create Account →
+        </button>
+      </div>
+    </form>
+  );
+}
