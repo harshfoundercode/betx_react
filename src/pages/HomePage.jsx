@@ -151,106 +151,6 @@ const HomePage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // const gameSections = [
-  //   {
-  //     id: 1,
-  //     title: "Live Games",
-  //     icon: "🔴",
-  //     type: "live",
-  //     games: [
-  //       {
-  //         id: 1,
-  //         name: "Aviator",
-  //         image: "🚀",
-  //         isEmoji: true,
-  //         badge: "LIVE",
-  //         tag: "TRENDING",
-  //         players: "12.4K playing",
-  //         multiplier: gameMultipliers.aviator,
-  //         bg: "from-emerald-700/80 to-emerald-500/60",
-  //         stickBorder: ""
-  //       },
-  //       {
-  //         id: 2,
-  //         name: "Ludo",
-  //         image: "🎲",
-  //         isEmoji: true,
-  //         badge: "HOT",
-  //         players: "8.2K playing",
-  //         multiplier: gameMultipliers.ludo,
-  //         bg: "from-orange-700/80 to-orange-500/60",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "BetX Originals",
-  //     icon: "👑",
-  //     type: "original",
-  //     games: [
-  //       {
-  //         id: 1,
-  //         name: "Tower Rush",
-  //         image: "🗼",
-  //         isEmoji: true,
-  //         subtitle: "BETX ORIGINAL",
-  //         bg: "from-[#441C75] to-[#441C75]",
-  //       },
-  //       {
-  //         id: 2,
-  //         name: "Chicken Road",
-  //         image: "🐔",
-  //         isEmoji: true,
-  //         subtitle: "BETX ORIGINAL",
-  //         bg: "from-[#6E1B3A] to-[#6E1B3A]",
-  //       },
-  //       {
-  //         id: 3,
-  //         name: "Magic Wheel",
-  //         image: "🎡",
-  //         isEmoji: true,
-  //         subtitle: "BETX ORIGINAL",
-  //         bg: "from-[#16445D] to-[#16445D]",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Popular Slots",
-  //     icon: "🎰",
-  //     type: "slot",
-  //     games: [
-  //       {
-  //         id: 1,
-  //         name: "Teen Patti",
-  //         image: teenpatti,
-  //         isEmoji: false,
-  //         badge: "HOT",
-  //         rating: "4.7",
-  //         rtp: "95.8%",
-  //       },
-  //       {
-  //         id: 2,
-  //         name: "Blackjack",
-  //         image: blackjack,
-  //         isEmoji: false,
-  //         badge: "JACKPOT",
-  //         rating: "4.9",
-  //         rtp: "96.5%",
-  //       },
-  //       {
-  //         id: 3,
-  //         name: "Dragon Tiger",
-  //         image: dragontiger,
-  //         isEmoji: false,
-  //         badge: "NEW",
-  //         rating: "4.8",
-  //         rtp: "97.1%",
-  //       },
-  //     ],
-  //   },
-  // ];
-
   const gameSections = [
     {
       id: 1,
@@ -365,7 +265,7 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="bg-black text-white">
       {/* Top Right Auth Section */}
       <div className="fixed top-0 right-0 left-0 z-50 bg-black">
         <div className="max-w-7.1xl mx-auto px-4 py-3">
@@ -458,7 +358,7 @@ const HomePage = () => {
       </div>
 
       {/* Main Content - Centered with max-w-md (600px) */}
-      <div className="pt-18 pb-24">
+      <div className="pt-18 pb-2">
         <div className="max-w-md mx-auto px-4">
           {/* Game Card */}
           <div

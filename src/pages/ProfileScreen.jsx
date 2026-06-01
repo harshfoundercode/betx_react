@@ -54,9 +54,9 @@ export default function ProfileScreen() {
     activeTab === "all"
       ? betHistory
       : betHistory.filter(
-          (bet) =>
-            bet.status === activeTab
-        );
+        (bet) =>
+          bet.status === activeTab
+      );
 
   const handleLogout = () => {
     localStorage.clear();
@@ -64,17 +64,10 @@ export default function ProfileScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white pb-24">
+    <div className=" bg-black text-white">
       <div className="max-w-md mx-auto px-4 py-4">
 
-        {/* Header */}
-        <div className="relative flex items-center justify-center mb-4">
-         
 
-          <h1 className="text-sm font-bold tracking-[3px]">
-            MY PROFILE
-          </h1>
-        </div>
 
         {/* User */}
         <div className="flex flex-col items-center mb-4">
@@ -92,9 +85,8 @@ export default function ProfileScreen() {
                 text-xl
               "
             >
-              H
+              AB
             </div>
-
             <div
               className="
                 absolute
@@ -110,7 +102,7 @@ export default function ProfileScreen() {
           </div>
 
           <h2 className="mt-1 text-lg font-bold">
-            Harsh
+            ABCD
           </h2>
 
           <p className="text-[10px] text-gray-500">
@@ -296,10 +288,9 @@ export default function ProfileScreen() {
                   font-semibold
                   transition-all
 
-                  ${
-                    activeTab === tab
-                      ? "bg-yellow-500/10 border border-yellow-500/20 text-yellow-400"
-                      : "bg-white/5 border border-white/10 text-gray-400"
+                  ${activeTab === tab
+                    ? "bg-yellow-500/10 border border-yellow-500/20 text-yellow-400"
+                    : "bg-white/5 border border-white/10 text-gray-400"
                   }
                 `}
               >
@@ -340,10 +331,9 @@ export default function ProfileScreen() {
                       text-[10px]
                       font-semibold
 
-                      ${
-                        bet.status === "won"
-                          ? "bg-green-500/10 text-green-400"
-                          : "bg-red-500/10 text-red-400"
+                      ${bet.status === "won"
+                        ? "bg-green-500/10 text-green-400"
+                        : "bg-red-500/10 text-red-400"
                       }
                     `}
                   >
@@ -374,10 +364,9 @@ export default function ProfileScreen() {
                         text-xs
                         font-bold
 
-                        ${
-                          bet.profit > 0
-                            ? "text-green-400"
-                            : "text-red-400"
+                        ${bet.profit > 0
+                          ? "text-green-400"
+                          : "text-red-400"
                         }
                       `}
                     >

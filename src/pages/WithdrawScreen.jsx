@@ -67,7 +67,7 @@ export default function WithdrawScreen() {
         onSave={addAccount}
       />
 
-      <div className="min-h-screen bg-black text-white pb-24">
+      <div className=" bg-black text-white pb-2">
         <div className="max-w-md mx-auto px-4 py-4">
 
           {/* Header */}

@@ -5,8 +5,7 @@ import {
   TrendingUp, Award, Star, CircleDollarSign
 } from 'lucide-react';
 
-// Re-using the same game data structure from HomePage for consistency
-// In the future, this could be fetched from an API
+
 const ALL_GAMES_DATA = {
   liveGames: [
     { id: 1, name: "Aviator", icon: "🚀", players: "24.1K playing", multiplier: "16.40x", badge: "LIVE", tag: "TRENDING", bg: "from-emerald-700/80 to-emerald-500/60" },
@@ -34,7 +33,7 @@ const VipPage = () => {
     <div className="min-h-screen bg-black text-white">
      
       {/* Main Content - Same width as HomePage (max-w-md) */}
-      <div className="pt-20 pb-24">
+      <div className="pt-8 pb-2">
         <div className="max-w-md mx-auto px-4">
 
           {/* Live Games Section */}
