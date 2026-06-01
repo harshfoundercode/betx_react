@@ -267,7 +267,7 @@ const HomePage = () => {
   return (
     <div className="bg-black text-white">
       {/* Top Right Auth Section */}
-      <div className="fixed top-0 right-0 left-0 z-50 bg-black">
+      <div className="bg-black">
         <div className="max-w-7.1xl mx-auto px-4 py-3">
           <div className="flex justify-between items-center">
             {/* Logo */}
@@ -358,7 +358,7 @@ const HomePage = () => {
       </div>
 
       {/* Main Content - Centered with max-w-md (600px) */}
-      <div className="pt-18 pb-2">
+      <div className="pb-2">
         <div className="max-w-md mx-auto px-4">
           {/* Game Card */}
           <div
