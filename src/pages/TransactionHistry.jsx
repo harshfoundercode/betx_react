@@ -16,7 +16,7 @@ export default function AccountStatementScreen() {
   const transactions = [];
 
   return (
-    <div className="min-h-screen bg-black text-white pb-24">
+    <div className="min-h-screen bg-black text-white">
 
       {/* Top Header */}
       <div className="sticky top-0 z-20 bg-black border-b border-yellow-500/10">
