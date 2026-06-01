@@ -36,7 +36,7 @@ export default function BottomNav() {
           relative
           p-px
           rounded-[26px]
-          bg-gradient-to-r
+          bg-linear-to-r
           from-cyan-500/30
           via-yellow-500/20
           to-red-500/30
@@ -52,7 +52,7 @@ export default function BottomNav() {
             px-3
             py-2
 
-            w-[420px]
+            w-105
           "
         >
           <div className="flex justify-between items-center">
