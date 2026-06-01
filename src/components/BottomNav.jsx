@@ -52,7 +52,7 @@ export default function BottomNav() {
             px-3
             py-2
 
-            w-[360px]
+            w-[420px]
           "
         >
           <div className="flex justify-between items-center">
@@ -123,14 +123,13 @@ export default function BottomNav() {
                     className={`
                       relative z-10
 
-                      ${
-                        isActive
-                          ? "text-[#F8B400]"
-                          : "text-gray-500"
+                      ${isActive
+                        ? "text-[#F8B400]"
+                        : "text-gray-500"
                       }
                     `}
                   >
-                    <Icon size={20} />
+                    <Icon size={18} />
                   </motion.div>
 
                   {/* Label */}
@@ -143,42 +142,16 @@ export default function BottomNav() {
                       font-semibold
                       mt-1
 
-                      ${
-                        isActive
-                          ? "text-[#F8B400]"
-                          : "text-gray-500"
+                      ${isActive
+                        ? "text-[#F8B400]"
+                        : "text-gray-500"
                       }
                     `}
                   >
                     {item.label}
                   </span>
 
-                  {/* Glowing Dot */}
 
-                  {isActive && (
-                    <motion.div
-                      layoutId="dot"
-                      initial={{
-                        scale: 0,
-                      }}
-                      animate={{
-                        scale: 1,
-                      }}
-                      className="
-                        absolute
-                        bottom-1
-
-                        w-1.5
-                        h-1.5
-
-                        rounded-full
-
-                        bg-yellow-400
-
-                        shadow-[0_0_12px_rgba(255,200,0,.9)]
-                      "
-                    />
-                  )}
                 </Link>
               );
             })}
