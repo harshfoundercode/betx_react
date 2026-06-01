@@ -151,12 +151,116 @@ const HomePage = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // const gameSections = [
+  //   {
+  //     id: 1,
+  //     title: "Live Games",
+  //     icon: "🔴",
+  //     type: "live",
+  //     games: [
+  //       {
+  //         id: 1,
+  //         name: "Aviator",
+  //         image: "🚀",
+  //         isEmoji: true,
+  //         badge: "LIVE",
+  //         tag: "TRENDING",
+  //         players: "12.4K playing",
+  //         multiplier: gameMultipliers.aviator,
+  //         bg: "from-emerald-700/80 to-emerald-500/60",
+  //         stickBorder: ""
+  //       },
+  //       {
+  //         id: 2,
+  //         name: "Ludo",
+  //         image: "🎲",
+  //         isEmoji: true,
+  //         badge: "HOT",
+  //         players: "8.2K playing",
+  //         multiplier: gameMultipliers.ludo,
+  //         bg: "from-orange-700/80 to-orange-500/60",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "BetX Originals",
+  //     icon: "👑",
+  //     type: "original",
+  //     games: [
+  //       {
+  //         id: 1,
+  //         name: "Tower Rush",
+  //         image: "🗼",
+  //         isEmoji: true,
+  //         subtitle: "BETX ORIGINAL",
+  //         bg: "from-[#441C75] to-[#441C75]",
+  //       },
+  //       {
+  //         id: 2,
+  //         name: "Chicken Road",
+  //         image: "🐔",
+  //         isEmoji: true,
+  //         subtitle: "BETX ORIGINAL",
+  //         bg: "from-[#6E1B3A] to-[#6E1B3A]",
+  //       },
+  //       {
+  //         id: 3,
+  //         name: "Magic Wheel",
+  //         image: "🎡",
+  //         isEmoji: true,
+  //         subtitle: "BETX ORIGINAL",
+  //         bg: "from-[#16445D] to-[#16445D]",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Popular Slots",
+  //     icon: "🎰",
+  //     type: "slot",
+  //     games: [
+  //       {
+  //         id: 1,
+  //         name: "Teen Patti",
+  //         image: teenpatti,
+  //         isEmoji: false,
+  //         badge: "HOT",
+  //         rating: "4.7",
+  //         rtp: "95.8%",
+  //       },
+  //       {
+  //         id: 2,
+  //         name: "Blackjack",
+  //         image: blackjack,
+  //         isEmoji: false,
+  //         badge: "JACKPOT",
+  //         rating: "4.9",
+  //         rtp: "96.5%",
+  //       },
+  //       {
+  //         id: 3,
+  //         name: "Dragon Tiger",
+  //         image: dragontiger,
+  //         isEmoji: false,
+  //         badge: "NEW",
+  //         rating: "4.8",
+  //         rtp: "97.1%",
+  //       },
+  //     ],
+  //   },
+  // ];
+
   const gameSections = [
     {
       id: 1,
       title: "Live Games",
       icon: "🔴",
       type: "live",
+
+      lineColor: "#EF4444",
+      lineShadow: "rgba(239,68,68,0.8)",
+
       games: [
         {
           id: 1,
@@ -181,11 +285,16 @@ const HomePage = () => {
         },
       ],
     },
+
     {
       id: 2,
       title: "BetX Originals",
       icon: "👑",
       type: "original",
+
+      lineColor: "#A855F7",
+      lineShadow: "rgba(168,85,247,0.8)",
+
       games: [
         {
           id: 1,
@@ -213,11 +322,16 @@ const HomePage = () => {
         },
       ],
     },
+
     {
       id: 3,
       title: "Popular Slots",
       icon: "🎰",
       type: "slot",
+
+      lineColor: "#F59E0B",
+      lineShadow: "rgba(245,158,11,0.8)",
+
       games: [
         {
           id: 1,
@@ -249,7 +363,7 @@ const HomePage = () => {
       ],
     },
   ];
-
+  
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Top Right Auth Section */}
@@ -389,7 +503,7 @@ const HomePage = () => {
                 {/* Play Button */}
                 <button className="group relative overflow-hidden bg-linear-to-r from-[#F25335] to-[#F76921] text-white font-bold px-5 py-2 rounded-[10px] shadow-[0_0_25px_rgba(242,83,53,0.45)] hover:scale-105 transition-all duration-300">
 
-                 
+
                   {/* Content */}
                   <span className="relative z-10 flex items-center gap-2">
                     <Play size={16} fill="currentColor" />
@@ -412,8 +526,6 @@ const HomePage = () => {
           </div>
 
           {/* three grid */}
-
-
           <div className="grid grid-cols-3 gap-3 mt-4">
             {quickActions.map((item) => {
               const Icon = item.icon;
@@ -521,21 +633,21 @@ const HomePage = () => {
           <div className="relative overflow-hidden rounded-[22px] mt-5 border border-amber-500/20 bg-linear-to-r from-[#181C33] via-[#16213F] to-[#122C52]">
             {/* Header */}
             <div className="flex items-center gap-2 px-5 py-3 border-b border-white/5">
-              <span className="text-yellow-400">🏆</span>
-              <span className="text-yellow-400 text-sm font-bold tracking-[2px] uppercase">
+              <span className="text-yellow-400 text-xs">🏆</span>
+              <span className="text-yellow-400 text-sm font-bold tracking-[1px] uppercase">
                 Recent Big Wins
               </span>
               <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
             </div>
 
             {/* Animated Content */}
-            <div className="px-5 py-4 flex items-center justify-between">
+            <div className="px-4 py-3 flex items-center justify-between">
               <div>
                 <p className="text-sm">
                   <span className="text-white font-semibold">
                     {recentWins[currentWin].user}
                   </span>
-                  <span className="text-gray-400"> won on </span>a
+                  <span className="text-gray-400"> won on </span>
                   <span className="text-yellow-400 font-medium animate-pulse">
                     {recentWins[currentWin].game}
                   </span>
@@ -562,8 +674,20 @@ const HomePage = () => {
                 {/* Heading */}
                 <div className="flex items-center justify-between mb-4">
                   <h1 className="flex items-center gap-3 text-white text-xl font-bold">
+                    <div
+                      className="w-[3px] h-7 rounded-full"
+                      style={{
+                        background: section.lineColor,
+                        boxShadow: `
+        0 0 6px ${section.lineShadow},
+        0 0 12px ${section.lineShadow},
+        0 0 18px ${section.lineShadow}
+      `,
+                      }}
+                    />
+
                     <span>{section.icon}</span>
-                    {section.title}
+                    <span>{section.title}</span>
                   </h1>
                   <button
                     onClick={() => navigate('/view-all-games', {
