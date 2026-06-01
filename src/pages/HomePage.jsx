@@ -363,7 +363,7 @@ const HomePage = () => {
       ],
     },
   ];
-  
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Top Right Auth Section */}
@@ -675,7 +675,7 @@ const HomePage = () => {
                 <div className="flex items-center justify-between mb-4">
                   <h1 className="flex items-center gap-3 text-white text-xl font-bold">
                     <div
-                      className="w-[3px] h-7 rounded-full"
+                      className="w-0.75 h-7 rounded-full"
                       style={{
                         background: section.lineColor,
                         boxShadow: `
@@ -750,9 +750,10 @@ const HomePage = () => {
                           <span className="text-white/70 text-xs group-hover:text-white transition-all duration-300">
                             {game.players}
                           </span>
-                          <button className="w-10 h-10 rounded-full bg-white/10 text-white group-hover:bg-yellow-500 group-hover:scale-110 transition-all duration-300 group-hover:shadow-lg">
-                            ▶
+                          <button className="w-10 h-10 rounded-full bg-white/10 text-white group-hover:bg-yellow-500 group-hover:scale-110 transition-all duration-300 group-hover:shadow-lg flex items-center justify-center">
+                            <Play size={16} fill="currentColor" />
                           </button>
+
                         </div>
                       </div>
                     ))}
@@ -806,7 +807,7 @@ const HomePage = () => {
                         />
                         <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-all duration-300" />
 
-                        <div className="absolute inset-0 rounded-[30px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 border-2 border-yellow-500/50 pointer-events-none"></div>
+                        <div className="absolute inset-0 rounded-[30px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
 
                         <div className="relative z-10 p-4 h-full flex flex-col justify-between">
                           <div className="flex gap-2">
