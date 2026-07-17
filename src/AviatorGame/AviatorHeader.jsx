@@ -144,7 +144,7 @@ function AviatorHeader({
   const im = localStorage.getItem("aviatorBg");
   return (
     <>
-      <header className="flex items-center bg-blackAviator2 text-blackAviatorText justify-between h-[3.22rem] w-full px-3">
+      <header className="flex items-center bg-blackAviator2 text-blackAviatorText justify-between h-[3.22rem] px-3">
         <audio ref={audioRefCrash} src={crashmusic} preload="auto" />
         <audio ref={audioRef} src={backgroundMusic} preload="auto" />
         <img

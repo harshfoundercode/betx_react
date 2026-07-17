@@ -74,12 +74,14 @@ function App() {
                 </PublicRoute>
               }
             />
-            
+
             <Route
               path="/lottery/wingo"
               element={
                 <PublicRoute>
-                  <WinGo />
+                  <div className="bg-black">
+                    <WinGo />
+                  </div>
                 </PublicRoute>
               }
             />
@@ -87,7 +89,10 @@ function App() {
               path="/aviator"
               element={
                 <PublicRoute>
-                  <AviatorHome />
+                   <div className="bg-black">
+                    <AviatorHome />
+                  </div>
+                  
                 </PublicRoute>
               }
             />

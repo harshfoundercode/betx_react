@@ -5,7 +5,8 @@ import BetButtonTwo from "./BetButtonTwo";
 
 const BetSection = ({ setBtn, setBetApiHitted, myDetails }) => {
   return (
-    <div className=" lg:flex h-full gap-2 rounded-lg ">
+        <div className="flex flex-col lg:flex-row gap-2 rounded-lg w-full">
+
       {/* Left Bet Box */}
       <BetButtonOne
         setBtn={setBtn}

@@ -377,7 +377,7 @@ const WinGo = () => {
     try {
       console.log(`my history api : ${wingo_my_history}`)
       const res = await axios.post(`${wingo_my_history}`, payload)
-      console.log("my history:",res)
+      console.log("my history:", res)
       if (res?.status === 200) {
         setMyHistoryData(res?.data)
         if (res?.data?.data?.length < limit) {
@@ -396,9 +396,9 @@ const WinGo = () => {
     setIsLoading(true);
     try {
       const offset = (currentPage - 1) * limit;
-       console.log(
-         `result api:${wingo_game_history}?game_id=${gameDetails?.gameId}&limit=${limit}&offset=${offset}`
-       );
+      console.log(
+        `result api:${wingo_game_history}?game_id=${gameDetails?.gameId}&limit=${limit}&offset=${offset}`
+      );
       const res = await axios.get(
         `${wingo_game_history}?game_id=${gameDetails?.gameId}&limit=${limit}&offset=${offset}`
       );
@@ -467,10 +467,10 @@ const WinGo = () => {
         isAudioOn={isAudioOn}
         setIsAudioOn={setIsAudioOn}
       />
-      <div className="h-screen overflow-scroll hide-scrollbar bg-red max-w-md mx-auto">
+      <div className="h-screen overflow-hidden max-w-100 mx-auto">
         <audio ref={audioRef} src={countdownone} preload="auto" />
-        <div className=" h-full font-roboto">
-          <div className="bg-red h-[19rem] rounded-b-[55px] px-4 pt-2">
+        <div className=" h-full font-roboto overflow-y-auto hide-scrollbar">
+          <div className="bg-black h-[19rem] rounded-b-[55px] px-4 pt-2">
             {/* 1st div */}
             <div
               className="p-5 h-[9rem] text-white bg-[#4D4D4C] rounded-3xl "
@@ -510,23 +510,26 @@ const WinGo = () => {
             </div>
 
             {/* 2nd div */}
-            <div className="flex justify-between w-full bg-redLight p-2 rounded-full text-white opacity-75 mt-6 items-center">
-              <div className="h-7 flex items-center overflow-hidden">
-                <img className="h-5 w-5" src={micphone} alt="ds" />{" "}
+            <div className="flex justify-between w-full bg-redLight p-2 rounded-full text-white opacity-75 mt-6 items-center min-h-16">
+              <div className="flex items-center flex-1 min-w-0 gap-1">
+                <img className="h-5 w-5 flex-shrink-0" src={micphone} alt="ds" />
                 <div
-                  className={`flex-1 xsm:flex-0 font-bold w-full pl-1  text-[10px] xsm:text-xs overflow-hidden text-ellipsis whitespace-normal break-words transition-transform duration-1000 ease-in-out ${
-                    animate
-                      ? "transform -translate-y-full"
-                      : "transform translate-y-0"
-                  }`}
+                  className={`font-bold pl-1 text-[10px] xsm:text-xs transition-all duration-1000 ease-in-out ${animate ? "opacity-0 translate-y-[-100%]" : "opacity-100 translate-y-0"
+                    }`}
                   style={{
-                    transform: animate ? "translateY(-100%)" : "translateY(0)",
+                    overflow: "hidden",
+                    wordBreak: "break-word",
+                    lineHeight: "1.4",
+                    maxHeight: "3.5em", // Isko adjust karein
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2, // Sirf 2 lines dikhane ke liye
+                    WebkitBoxOrient: "vertical",
                   }}
                 >
-                  {noteValue}
+                  {notes[0]} {/* Ya jo bhi index use kar rahe hain */}
                 </div>
               </div>
-              <div className="shrink-0 py-0.5 text-xsm px-4 bg-gradient-to-r from-[#EDD188] to-[#C79744] text-black  flex gap-1 justify-center items-center  rounded-3xl">
+              <div className="shrink-0 py-0.5 text-xsm px-4 bg-gradient-to-r from-[#EDD188] to-[#C79744] text-black flex gap-1 justify-center items-center rounded-3xl ml-2">
                 <RiFireFill className="text-black" />
                 Detail
               </div>
@@ -542,11 +545,10 @@ const WinGo = () => {
               ].map((item) => (
                 <div
                   key={item.time}
-                  className={`flex flex-col col-span-1 rounded-xl items-center px-2 py-2 cursor-pointer ${
-                    selectedIMgIndex === item.time
-                      ? "bg-gradient-to-b from-[#EDD188] to-[#C79744] text-[#975206]"
-                      : ""
-                  }`}
+                  className={`flex flex-col col-span-1 rounded-xl items-center px-2 py-2 cursor-pointer ${selectedIMgIndex === item.time
+                    ? "bg-gradient-to-b from-[#EDD188] to-[#C79744] text-[#975206]"
+                    : ""
+                    }`}
                   onClick={() => {
                     gameDetailsHandler(item);
                     handleTimerClick(item.time, item.duration);
@@ -558,20 +560,18 @@ const WinGo = () => {
                     alt="timer"
                   />
                   <p
-                    className={`text-nowrap font-normal ${
-                      selectedIMgIndex === item.time
-                        ? ""
-                        : "text-white opacity-60"
-                    }`}
+                    className={`text-nowrap font-normal ${selectedIMgIndex === item.time
+                      ? ""
+                      : "text-white opacity-60"
+                      }`}
                   >
                     {item.label}
                   </p>
                   <p
-                    className={`font-normal  ${
-                      selectedIMgIndex === item.time
-                        ? ""
-                        : "text-white opacity-60"
-                    }`}
+                    className={`font-normal  ${selectedIMgIndex === item.time
+                      ? ""
+                      : "text-white opacity-60"
+                      }`}
                   >
                     {item.time}
                   </p>
@@ -656,7 +656,7 @@ const WinGo = () => {
           {/* betting buttons 5th divv */}
           <div
             ref={fifthDivRef}
-            className=" bg-redLight mt-[13rem] xsm:mt-[12.5rem] md:mt-[12rem]  p-3 mx-4 rounded-2xl"
+            className=" bg-redLight xsm:mt-50 md:mt-55  p-3 mx-4 rounded-2xl"
           >
             <div className="flex items-center bg-rose-900 justify-center mr-1">
               <TimerModal
@@ -671,52 +671,47 @@ const WinGo = () => {
             <div className="flex justify-between gap-5">
               <button
                 onClick={() => handleBtnClick("green", 10)}
-                className={`${
-                  timerModal ? "" : "relative z-10"
-                }  w-24  h-10 rounded-bl-lg rounded-tr-lg  bg-green text-xsm  `}
+                className={`${timerModal ? "" : "relative z-10"
+                  }  w-24  h-10 rounded-bl-lg rounded-tr-lg  bg-green text-xsm  `}
               >
                 Green
               </button>
               <button
                 onClick={() => handleBtnClick("voilet", 20)}
-                className={`${
-                  timerModal ? "" : "relative z-10"
-                } w-24 h-10 rounded-lg  bg-voilet text-xsm `}
+                className={`${timerModal ? "" : "relative z-10"
+                  } w-24 h-10 rounded-lg  bg-voilet text-xsm `}
               >
                 Violet
               </button>
               <button
                 onClick={() => handleBtnClick("red", 30)}
-                className={`${
-                  timerModal ? "" : "relative z-10"
-                } w-24 h-10  rounded-tl-lg rounded-br-lg  bg-customred text-xsm `}
+                className={`${timerModal ? "" : "relative z-10"
+                  } w-24 h-10  rounded-tl-lg rounded-br-lg  bg-customred text-xsm `}
               >
                 Red
               </button>
             </div>
-            <div className="bg-red mt-5 rounded-lg p-2">
+            <div className="bg-black mt-5 rounded-lg p-2">
               {[0, 1].map((row) => (
                 <div
                   key={row}
-                  className={`flex items-center gap-2 ${
-                    row === 1 ? "mt-2" : ""
-                  }`}
+                  className={`flex items-center gap-2 ${row === 1 ? "mt-2" : ""
+                    }`}
                 >
                   {images.slice(row * 5, row * 5 + 5).map((imgSrc, index) => {
                     const actualIndex = row * 5 + index;
                     const ballColor = [0].includes(actualIndex)
                       ? "rv"
                       : [5].includes(actualIndex)
-                      ? "gv"
-                      : [2, 4, 6, 8].includes(actualIndex)
-                      ? "r"
-                      : "g";
+                        ? "gv"
+                        : [2, 4, 6, 8].includes(actualIndex)
+                          ? "r"
+                          : "g";
                     return (
                       <button
                         key={index}
-                        className={`image-button ${
-                          timerModal ? "" : "relative z-10"
-                        } w-[18%] xsm:w-[61.5px] h-[18%] xsm:h-[50.5px]`}
+                        className={`image-button ${timerModal ? "" : "relative z-10"
+                          } w-[18%] xsm:w-[61.5px] h-[18%] xsm:h-[50.5px]`}
                       >
                         <img
                           onClick={() => handleBtnClick(ballColor, actualIndex)}
@@ -733,9 +728,8 @@ const WinGo = () => {
             <div className="mt-3 flex gap-2">
               <button
                 onClick={() => handleRandomClick(selectedBtnIndex)}
-                className={`${
-                  timerModal ? "" : "relative z-10"
-                }flex items-center justify-center text-xsm w-[26%] py-1 sm:py-2 text-customred border border-customred rounded-lg`}
+                className={`${timerModal ? "" : "relative z-10"
+                  }flex items-center justify-center text-xsm w-[26%] py-1 sm:py-2 text-customred border border-customred rounded-lg`}
               >
                 Random
               </button>
@@ -745,13 +739,11 @@ const WinGo = () => {
                   <button
                     key={i}
                     onClick={() => setSelectedBtnIndex(numericValue)}
-                    className={`${
-                      timerModal ? "" : "relative z-10"
-                    } flex items-center justify-center text-xs w-[11%] rounded-lg ${
-                      selectedBtnIndex === numericValue
+                    className={`${timerModal ? "" : "relative z-10"
+                      } flex items-center justify-center text-xs w-[11%] rounded-lg ${selectedBtnIndex === numericValue
                         ? "bg-green text-white"
-                        : "bg-red text-gray"
-                    }`}
+                        : "bg-black text-gray"
+                      }`}
                   >
                     {value}
                   </button>
@@ -761,17 +753,15 @@ const WinGo = () => {
             <div className="w-full mt-3 flex">
               <button
                 onClick={() => handleBtnClick("yellow", 40)}
-                className={`${
-                  timerModal ? "bg-yellow" : "relative z-10 bg-yellow"
-                } rounded-l-full w-[50%] py-2 text-center text-xsm`}
+                className={`${timerModal ? "bg-yellow" : "relative z-10 bg-yellow"
+                  } rounded-l-full w-[50%] py-2 text-center text-xsm`}
               >
                 Big
               </button>
               <button
                 onClick={() => handleBtnClick("bg3", 50)}
-                className={`${
-                  timerModal ? "bg-bg3" : "relative z-10 bg-bg3"
-                } rounded-r-full w-[50%] py-2 text-center text-xsm `}
+                className={`${timerModal ? "bg-bg3" : "relative z-10 bg-bg3"
+                  } rounded-r-full w-[50%] py-2 text-center text-xsm `}
               >
                 Small
               </button>
@@ -782,11 +772,10 @@ const WinGo = () => {
               <button
                 key={i}
                 onClick={() => handlehistoryClick(i)}
-                className={`flex items-center justify-center w-[33%] text-xsm py-2 rounded-lg ${
-                  selectedHistoryIndex === i
-                    ? "bg-gradient-to-r from-[#EDD188] to-[#C79744] text-[#925506] font-semibold"
-                    : "bg-[#333332] text-[#929285]"
-                }`}
+                className={`flex items-center justify-center w-[33%] text-xsm py-2 rounded-lg ${selectedHistoryIndex === i
+                  ? "bg-gradient-to-r from-[#EDD188] to-[#C79744] text-[#925506] font-semibold"
+                  : "bg-[#333332] text-[#929285]"
+                  }`}
               >
                 {value}
               </button>
