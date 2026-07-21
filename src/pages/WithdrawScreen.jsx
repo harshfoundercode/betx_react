@@ -82,9 +82,9 @@ export default function WithdrawScreen() {
           {/* Balance */}
           <div
             className="
-              rounded-[16px]
+              rounded-2xl
               border border-yellow-500/10
-              bg-gradient-to-b
+              bg-linear-to-b
               from-[#0F0C05]
               to-[#090909]
               p-3

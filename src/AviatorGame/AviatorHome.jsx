@@ -256,7 +256,7 @@ function AviatorHome() {
                     setRefreshHeightList={setRefreshHeightList}
                   />
                 </div>
-                <div className="flex items-center gap-1 border border-gray-500 bg-blackAviator2 px-2 py-0.5 rounded-full flex-shrink-0">
+                <div className="flex items-center gap-1 border border-gray-500 bg-blackAviator2 px-2 py-0.5 rounded-full shrink-0">
                   <button
                     onClick={() => setRefreshHeightList(true)}
                     className="text-gray-400 hover:text-white transition-colors"
@@ -318,7 +318,7 @@ function AviatorHome() {
       {openHeightListModal && (
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-16">
           <div 
-            className="bg-black/90 backdrop-blur-sm rounded-lg shadow-xl p-3 w-[90%] max-w-[380px] max-h-48 overflow-y-auto"
+            className="bg-black/90 backdrop-blur-sm rounded-lg shadow-xl p-3 w-[90%] max-w-95 max-h-48 overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <p className="text-white font-semibold text-sm mb-2">Round History</p>

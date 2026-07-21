@@ -725,7 +725,7 @@ function BetButtonTwo({ setBtn, setBetApiHitted }) {
         <button
           className={`flex-1 py-1.5 rounded-full text-center text-sm font-medium transition-all duration-300 ${
             !isAuto 
-              ? "bg-gradient-to-r from-green-600 to-green-500 text-white shadow-lg shadow-green-500/25" 
+              ? "bg-linear-to-r from-green-600 to-green-500 text-white shadow-lg shadow-green-500/25" 
               : "text-gray-400 hover:text-white"
           }`}
           onClick={() => setIsAuto(false)}
@@ -735,7 +735,7 @@ function BetButtonTwo({ setBtn, setBetApiHitted }) {
         <button
           className={`flex-1 py-1.5 rounded-full text-center text-sm font-medium transition-all duration-300 ${
             isAuto 
-              ? "bg-gradient-to-r from-green-600 to-green-500 text-white shadow-lg shadow-green-500/25" 
+              ? "bg-linear-to-r from-green-600 to-green-500 text-white shadow-lg shadow-green-500/25" 
               : "text-gray-400 hover:text-white"
           }`}
           onClick={() => setIsAuto(true)}
@@ -849,7 +849,7 @@ function BetButtonTwo({ setBtn, setBetApiHitted }) {
               <div className="w-full flex flex-col gap-1.5">
                 <button
                   onClick={cashoutNormalBetHandler}
-                  className="w-full flex-1 py-2.5 bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white text-xs font-bold rounded-xl transition-all duration-300 shadow-lg shadow-green-500/20 hover:shadow-green-500/40 hover:scale-[1.02] active:scale-95"
+                  className="w-full flex-1 py-2.5 bg-linear-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white text-xs font-bold rounded-xl transition-all duration-300 shadow-lg shadow-green-500/20 hover:shadow-green-500/40 hover:scale-[1.02] active:scale-95"
                 >
                   <div className="flex items-center justify-center gap-2">
                     <span>💰 CASHOUT</span>
@@ -902,7 +902,7 @@ function BetButtonTwo({ setBtn, setBetApiHitted }) {
                 )}
                 <button
                   onClick={cancelNormalBetHandler}
-                  className="w-full flex-1 py-2.5 bg-gradient-to-r from-red-600 to-rose-500 hover:from-red-700 hover:to-rose-600 text-white text-xs font-bold rounded-xl transition-all duration-300 shadow-lg shadow-red-500/20 hover:shadow-red-500/40 hover:scale-[1.02] active:scale-95"
+                  className="w-full flex-1 py-2.5 bg-linear-to-r from-red-600 to-rose-500 hover:from-red-700 hover:to-rose-600 text-white text-xs font-bold rounded-xl transition-all duration-300 shadow-lg shadow-red-500/20 hover:shadow-red-500/40 hover:scale-[1.02] active:scale-95"
                 >
                   ❌ CANCEL BET
                 </button>
@@ -949,7 +949,7 @@ function BetButtonTwo({ setBtn, setBetApiHitted }) {
               <button
                 onClick={normalBetHandler}
                 disabled={isButtonDisabled}
-                className={`w-full flex-1 py-2.5 bg-gradient-to-r from-green-600 to-emerald-500 text-white text-xs font-bold rounded-xl transition-all duration-300 shadow-lg shadow-green-500/20 hover:shadow-green-500/40 hover:scale-[1.02] active:scale-95 ${
+                className={`w-full flex-1 py-2.5 bg-linear-to-r from-green-600 to-emerald-500 text-white text-xs font-bold rounded-xl transition-all duration-300 shadow-lg shadow-green-500/20 hover:shadow-green-500/40 hover:scale-[1.02] active:scale-95 ${
                   isButtonDisabled ? "opacity-50 cursor-not-allowed hover:scale-100" : ""
                 }`}
               >
