@@ -20,7 +20,7 @@ export default function AccountStatementScreen() {
 
       {/* Top Header */}
       <div className="sticky top-0 z-20 bg-black border-b border-yellow-500/10">
-        <div className="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="max-w-xl mx-auto px-4 py-3 flex items-center justify-between">
 
           <h1 className="text-xl font-black">
             BET
@@ -47,7 +47,7 @@ export default function AccountStatementScreen() {
         </div>
       </div>
 
-      <div className="max-w-md mx-auto px-4 py-4">
+      <div className="max-w-xl mx-auto px-4 py-4">
 
         {/* Header */}
         <div className="relative flex items-center justify-center mb-5">

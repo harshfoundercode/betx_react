@@ -238,7 +238,7 @@ function AviatorHome() {
       
       {/* Main Container - Fixed Phone Size (360px to 480px) */}
       <div className="flex justify-center items-start w-full min-h-screen bg-red">
-        <div className="w-full max-w-[420px] min-h-screen px-2 pt-2">
+        <div className="w-full max-w-105 min-h-screen px-2 pt-2">
           
           {/* Content - Mobile Layout (Vertical) */}
           <div className="flex flex-col text-black gap-2">
@@ -283,7 +283,7 @@ function AviatorHome() {
               </div>
               
               {/* Flight Game */}
-              <div className="mt-2 bg-blackAviator2 rounded-2xl h-[320px] sm:h-[380px] relative overflow-hidden">
+              <div className="mt-2 bg-blackAviator2 rounded-2xl h-80 sm:h-95 relative overflow-hidden">
                 <AviatorFlight
                   changeBg={changeBg}
                   setChangeBg={setChangeBg}

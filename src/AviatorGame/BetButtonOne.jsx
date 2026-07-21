@@ -1,553 +1,7 @@
-// /* eslint-disable react/prop-types */
-// import axios from "axios";
-// import { useEffect, useState } from "react";
-// import { BiToggleLeft, BiToggleRight } from "react-icons/bi";
-// import { FiMinusCircle } from "react-icons/fi";
-// import { LuCirclePlus } from "react-icons/lu";
-// import { toast } from "react-toastify";
-// import apis from "../utils/apis";
-// import { socket } from "./AviatorSocket";
-// import { useProfile } from "../reusable_component/gameApi";
-// import { useNavigate } from "react-router-dom";
-
-// import "./index.css";
-// import { configModalUsaWin } from "../utils/apis";
-// function BetButtonOne({ setBtn, setBetApiHitted,  }) {
-//   const userId = localStorage.getItem("userId");
-//   const navigate = useNavigate();
-//   const [betAmount, setBetAmount] = useState(1);
-//   const [betStatus, setBetStatus] = useState(false);
-//   const [isAuto, setIsAuto] = useState(false);
-//   const [predictedCashoutValue, setPredictedCashoutValue] = useState(1.1);
-//     // const userId = localStorage.getItem("userId");
-//       const { myDetails} = useProfile(userId);
-//       // console.log("my details on bet one:", myDetails?.data.total_wallet);
-//   const [isAutoBetAndCashout, setIsAutoBetAndCashout] = useState({
-//     autoBet: false,
-//     autoCashout: false,
-//   });
-//   const [hotAirData, setHotAirData] = useState(null);
-//   useEffect(() => {
-//     const handleSocket = (hotair) => {
-//       const q = JSON.parse(hotair);
-//       setHotAirData(q);
-//     };
-
-//     socket.on("demobdg_aviator", handleSocket);
-//     return () => socket.off("demobdg_aviator", handleSocket);
-//   }, []);
-//   // console.log("hotAirDatahotAirDatahotAirDatahotAirData",hotAirData)
-//   const handleIncrement = () => setBetAmount((prev) => Number(prev) + 1);
-//   const handleDecrement = () =>
-//     setBetAmount((prev) => (prev > 1 ? Number(prev) - 1 : prev));
-//   const handleQuickBet = (amount) => setBetAmount(amount);
-
-//   // normal bet
-//   const normalBetHandler = async () => {
-//     try {
-//         const loginTokenFromLocalStorage = localStorage.getItem("login_token");
-//         const response = await axios.get(`${apis.profile}${userId}`);
-//         const profileToken = response?.data?.data?.login_token;
-//         if (profileToken != loginTokenFromLocalStorage) {
-//           // setLoading(true);
-//           // console.log("wingo login token matches");
-//           toast.error("Another user logged in");
-//           navigate("/login");
-//           return;
-//         }
-//           const sr =
-//             hotAirData?.status === 0 && hotAirData?.betTime < 10
-//               ? hotAirData?.period
-//               : hotAirData?.period + 1;
-//           // const sr = hotAirData?.period + 1
-//           const payload = {
-//             uid: userId,
-//             number: 1,
-//             amount: betAmount,
-//             game_id: 5,
-//             game_sr_num: sr,
-//           };
-//           // console.log("pYLOAD", payload);
-//           try {
-//             const res = await axios.post(
-//               `${configModalUsaWin}aviator_bet`,
-//               payload
-//             );
-//             // toast.success(res?.data?.message)
-//             // console.log("betbetebetebete", res)
-//             if (res?.data?.status === 200) {
-//               localStorage.setItem("aviatorBet1", "1");
-//               localStorage.setItem("aviatorsr1", sr);
-//               setBetApiHitted({ bet1: true });
-//               setBetApiHitted({ cancel1: false });
-//               toast.success(res?.data?.message, {
-//                 className: "custom-toast custom-toast-success",
-//               });
-//               setBetStatus(true);
-//             } else {
-//               toast.warn(res?.data?.message, {
-//                 className: "custom-toast custom-toast-warn",
-//               });
-//             }
-//           } catch (err) {
-//             if (err?.response?.data?.status === 500) {
-//               toast.error("Server problem");
-//             } else {
-//               // console.log(
-//               //   "err?.response?.data?.message",
-//               //   err?.response?.data?.message
-//               // );
-//               toast.error(err?.response?.data?.message, {
-//                 className: "custom-toast custom-toast-error",
-//               });
-//             }
-//           }
-//     } catch (error) {
-//           console.error("Error fetching profile data:", error);
-//           toast.error("Error fetching profile data");
-//     }
-  
-//   };
-//   const cancelNormalBetHandler = async () => {
-//     const sr = localStorage.getItem("aviatorsr1");
-
-//     const payload = {
-//       userid: userId,
-//       number: 1,
-//       gamesno: sr,
-//     };
-//     // console.log("pYLOAD", payload)
-//     try {
-//       const res = await axios.get(
-//         `${configModalUsaWin}aviator_bet_cancel?userid=${userId}&number=1&gamesno=${sr}`
-//       );
-//       // toast.success(res?.data?.message)
-//       // console.log("cvancelcancelcanel", res)
-//       if (res?.data?.success === true || res?.data?.status === 200) {
-//         localStorage.setItem("aviatorBet1", "0");
-//         localStorage.setItem("aviatorsr1", "0");
-//         setBetApiHitted({ cancel1: true });
-//         setBetStatus(false);
-//         toast.success(res?.data?.message, {
-//           className: "custom-toast custom-toast-success",
-//         });
-//       } else {
-//         toast.warn(res?.data?.message, {
-//           className: "custom-toast custom-toast-warn",
-//         });
-//         // toast.warn(res?.data?.message)
-//       }
-//     } catch (err) {
-//       if (err?.response?.data?.status === 500) {
-//         toast.error("Server problem");
-//       } else {
-//         toast.error(err?.response?.data?.message, {
-//           className: "custom-toast custom-toast-error",
-//         });
-//       }
-//     }
-//   };
-//   const cashoutNormalBetHandler = async () => {
-//     const sr = localStorage.getItem("aviatorsr1");
-//     const salt = {
-//       uid: userId,
-//       multiplier: hotAirData?.timer,
-//       game_sr_num: sr,
-//       number: 1,
-//     };
-
-//     // Convert salt object to a Base64 encoded string
-//     const saltEncoded = btoa(JSON.stringify(salt));
-//     // console.log("saltEncodedsaltEncoded", saltEncoded)
-//     try {
-//       const res = await axios.post(
-//         `${configModalUsaWin}aviator_cashout?salt=${encodeURIComponent(
-//           saltEncoded
-//         )}`
-//       );
-//       // console.log("cashout", res);
-//       if (res?.data?.status === 200) {
-//         setBetApiHitted({ cashout1: true });
-//         localStorage.setItem("aviatorBet1", "0");
-//         localStorage.setItem("aviatorsr1", "0");
-//         setBetStatus(false);
-//         toast.success(res?.data?.message, {
-//           className: "custom-toast custom-toast-success",
-//         });
-//       } else {
-//         toast.warn(res?.data?.message, {
-//           className: "custom-toast custom-toast-warn",
-//         });
-//       }
-//     } catch (err) {
-//       if (err?.response?.data?.status === 500) {
-//         // console.log("Server problem");
-//         toast.error("Server problem");
-//       } else {
-//         toast.error(err?.response?.data?.message, {
-//           className: "custom-toast custom-toast-error",
-//         });
-//       }
-//     }
-//   };
-
-//   // console.log("hotAirDatahotAirData",hotAirData)
-//   useEffect(() => {
-//     const status = localStorage.getItem("aviatorBet1");
-//     if (status == 1) {
-//       setBetStatus(true);
-//     }
-//     if (hotAirData?.status === 2) {
-//       const lastBetRound = localStorage.getItem("aviatorsr1");
-//       const currentRound = Number(hotAirData?.period);
-//       // console.log("lastBetRound and currentRound",betStatus,Number(lastBetRound),currentRound)
-//       if (lastBetRound != "0" && Number(lastBetRound) === currentRound) {
-//         localStorage.setItem("aviatorBet1", "0");
-//         localStorage.setItem("aviatorsr1", "0");
-//         setBetStatus(false);
-//       }
-//     }
-//   }, [hotAirData, betStatus]);
-//   // console.log("hotAirData?.timer", hotAirData, predictedCashoutValue)
-//   useEffect(() => {
-//     if (
-//       isAuto &&
-//       isAutoBetAndCashout.autoBet &&
-//       hotAirData?.status === 0 &&
-//       hotAirData?.betTime == "9"
-//     ) {
-//       // alert("sd")
-//       normalBetHandler();
-//     }
-//   }, [isAuto, isAutoBetAndCashout.autoBet, hotAirData]);
-//   useEffect(() => {
-//     if (
-//       isAuto &&
-//       isAutoBetAndCashout.autoCashout &&
-//       hotAirData?.status === 1 &&
-//       hotAirData?.timer == predictedCashoutValue
-//     ) {
-//       // alert("sd")
-//       cashoutNormalBetHandler();
-//     }
-//   }, [isAuto, isAutoBetAndCashout.autoCashout, hotAirData]);
-
-//   useEffect(() => {
-//     setBtn((prevState) => ({
-//       ...prevState,
-//       btn1: isAuto,
-//     }));
-//   }, [isAuto]);
-
-//   useEffect(() => {
-//     const sr = hotAirData?.period;
-//     const lasteBetSrNo = Number(localStorage.getItem("aviatorsr1"));
-//     const aviatorBetStatus = Number(localStorage.getItem("aviatorBet1"));
-//     // console.log("lasteBetSrNo", lasteBetSrNo,aviatorBetStatus);
-//     if (
-//       hotAirData?.status === 2 &&
-//       hotAirData?.betTime === 2 &&
-//       aviatorBetStatus === 1 &&
-//       lasteBetSrNo === sr
-//     ) {
-//       // alert("dfsfd")
-//       localStorage.setItem("aviatorsr1", "0");
-//       localStorage.setItem("aviatorBet1", "0");
-//       setBetStatus(false);
-//     }
-//   }, [hotAirData]);
-
-//   return (
-//     <div className="w-full py-1  lg:py-0 lg:w-1/2 text-xsm xsm:text-sm px-2 lg:px-10 3xl:px-20 bg-blackAviator2 rounded-md flex flex-col items-center">
-//       <div className="flex mt-1 justify-between bg-black rounded-full">
-//         <button
-//           className={`px-10 rounded-full ${
-//             !isAuto ? "bg-blackAviator3 text-white" : "bg-black text-white"
-//           }`}
-//           onClick={() => setIsAuto(false)}
-//         >
-//           Bet
-//         </button>
-//         <button
-//           className={`px-10 rounded-full ${
-//             isAuto ? "bg-blackAviator3 text-white" : "bg-black text-white"
-//           }`}
-//           onClick={() => setIsAuto(true)}
-//         >
-//           Auto
-//         </button>
-//       </div>
-
-//       {/* Bet Amount Control */}
-//       <div className="grid grid-cols-5 gap-2 w-full ">
-//         <div className="col-span-2 flex flex-col items-center w-full ">
-//           <div className="flex w-32 xsm:w-40 bg-black items-center text-2xl justify-between px-2 py-0.5 mt-2 rounded-full">
-//             <button className="text-blackAviator3" onClick={handleDecrement}>
-//               <FiMinusCircle className="text-gray" />{" "}
-//             </button>
-//             <input
-//               inputMode="numeric"
-//               type="text"
-//               min="0"
-//               value={betAmount}
-//               onBeforeInput={(e) => {
-//                 const incomingValue = e.target.value + e.data;
-//                 const wallet = Number(myDetails?.data?.total_wallet || 0);
-
-//                 // Prevent non-digit input and values greater than wallet
-//                 const isValid = /^\d+$/.test(incomingValue);
-//                 const numericVal = Number(incomingValue);
-
-//                 if (!isValid || numericVal > wallet) {
-//                   e.preventDefault();
-//                 }
-//               }}
-//               onChange={(e) => {
-//                 const val = e.target.value.replace(/\D/g, ""); // keep only digits
-//                 const numericVal = Number(val);
-//                 const wallet = Number(myDetails?.data?.total_wallet || 0);
-
-//                 if (numericVal <= wallet) {
-//                   setBetAmount(val);
-//                 }
-//               }}
-//               className="text-white text-xl bg-transparent text-center w-16 xsm:w-20 outline-none no-spinner"
-//             />
-
-//             <button className="text-blackAviator3" onClick={handleIncrement}>
-//               <LuCirclePlus className="text-gray" />{" "}
-//             </button>
-//           </div>
-//           <div className="flex gap-1 xsm:gap-2 mt-[2px] items-center justify-center">
-//             {[100, 200].map((amount) => (
-//               <button
-//                 key={amount}
-//                 className="px-2 py-0.5 bg-blackAviator3 text-gray rounded-full"
-//                 onClick={() => handleQuickBet(amount)}
-//               >
-//                 {amount}.00
-//               </button>
-//             ))}
-//           </div>
-//           <div className="flex gap-1 xsm:gap-2 mt-[1px] items-center justify-center">
-//             {[500, 1000].map((amount) => (
-//               <button
-//                 key={amount}
-//                 className="px-2 py-0.5 bg-blackAviator3 text-gray rounded-full"
-//                 onClick={() => handleQuickBet(amount)}
-//               >
-//                 {amount}.00
-//               </button>
-//             ))}
-//           </div>
-//           {isAuto && (
-//             <div className="w-full -mt-1 text-xsm xsm:text-sm text-gray flex items-center justify-center">
-//               Auto Bet &nbsp;
-//               <button>
-//                 {isAutoBetAndCashout.autoBet ? (
-//                   <BiToggleRight
-//                     onClick={() =>
-//                       setIsAutoBetAndCashout((prev) => ({
-//                         ...prev,
-//                         autoBet: false,
-//                       }))
-//                     }
-//                     className="text-white"
-//                     size={40}
-//                   />
-//                 ) : (
-//                   <BiToggleLeft
-//                     onClick={() =>
-//                       setIsAutoBetAndCashout((prev) => ({
-//                         ...prev,
-//                         autoBet: true,
-//                       }))
-//                     }
-//                     className="text-white"
-//                     size={40}
-//                   />
-//                 )}{" "}
-//               </button>
-//             </div>
-//           )}
-//         </div>
-//         {/* Bet Button */}
-//         {betStatus ? (
-//           hotAirData?.status === 1 &&
-//           Number(localStorage.getItem("aviatorsr1")) ===
-//             Number(hotAirData?.period) ? (
-//             <div className="mt-2 col-span-3  w-full">
-//               <button
-//                 onClick={cashoutNormalBetHandler}
-//                 className="[text-shadow:_0_4px_8px_rgb(99_102_241_/_0.8)] 
-//                            text-white text-xl md:text-2xl leading-snug 
-//                            font-manrope font-extrabold mt-1 col-span-3 px-8 py-1 w-full border-greenBorderAviator border-[2px] bg-yellow rounded-3xl"
-//               >
-//                 Cashout <br /> {(betAmount * hotAirData?.timer).toFixed(2)}
-//               </button>
-//               {isAuto && (
-//                 <div className="flex items-center justify-center gap-2">
-//                   <div className="text-gray flex items-center justify-start">
-//                     Auto Cash Out&nbsp;
-//                     <button>
-//                       {isAutoBetAndCashout.autoCashout ? (
-//                         <BiToggleRight
-//                           onClick={() =>
-//                             setIsAutoBetAndCashout((prev) => ({
-//                               ...prev,
-//                               autoCashout: false,
-//                             }))
-//                           }
-//                           className="text-white"
-//                           size={40}
-//                         />
-//                       ) : (
-//                         <BiToggleLeft
-//                           onClick={() =>
-//                             setIsAutoBetAndCashout((prev) => ({
-//                               ...prev,
-//                               autoCashout: true,
-//                             }))
-//                           }
-//                           className="text-white"
-//                           size={40}
-//                         />
-//                       )}{" "}
-//                     </button>
-//                   </div>
-//                   <input
-//                     value={predictedCashoutValue}
-//                     onChange={(e) => setPredictedCashoutValue(e.target.value)}
-//                     className="bg-black text-gray rounded-full px-2 w-20 py-0.5 flex items-center"
-//                   />
-//                 </div>
-//               )}
-//             </div>
-//           ) : (
-//             <div className="col-span-3 mt-2">
-//               {hotAirData?.status === 1 && (
-//                 <p className="text-[#F85050] text-sm text-center">
-//                   Waiting for next round
-//                 </p>
-//               )}
-//               <button
-//                 onClick={cancelNormalBetHandler}
-//                 className="[text-shadow:_0_4px_8px_rgb(99_102_241_/_0.8)] 
-//                            text-white text-xl md:text-2xl leading-snug 
-//                            font-manrope font-extrabold mt-1 px-8 py-3 w-full border-greenBorderAviator border-[2px] bg-[#DE003D] rounded-3xl"
-//               >
-//                 Cancel
-//               </button>
-//               {isAuto && (
-//                 <div className="flex items-center justify-center gap-2">
-//                   <div className="text-gray flex items-center justify-start">
-//                     Auto Cash Out&nbsp;
-//                     <button>
-//                       {isAutoBetAndCashout.autoCashout ? (
-//                         <BiToggleRight
-//                           onClick={() =>
-//                             setIsAutoBetAndCashout((prev) => ({
-//                               ...prev,
-//                               autoCashout: false,
-//                             }))
-//                           }
-//                           className="text-white"
-//                           size={40}
-//                         />
-//                       ) : (
-//                         <BiToggleLeft
-//                           onClick={() =>
-//                             setIsAutoBetAndCashout((prev) => ({
-//                               ...prev,
-//                               autoCashout: true,
-//                             }))
-//                           }
-//                           className="text-white"
-//                           size={40}
-//                         />
-//                       )}{" "}
-//                     </button>
-//                   </div>
-//                   <input
-//                     value={predictedCashoutValue}
-//                     onChange={(e) => setPredictedCashoutValue(e.target.value)}
-//                     className="bg-black text-gray rounded-full px-2 w-20 py-0.5 flex items-center"
-//                   />
-//                 </div>
-//               )}
-//             </div>
-//           )
-//         ) : (
-//           <div className="mt-2 col-span-3 w-full">
-//             <button
-//               onClick={normalBetHandler}
-//               className="w-full py-1 lg:px-8 border-greenBorderAviator border-[2px] bg-greenAviator text-white text-3xl rounded-3xl"
-//             >
-//               <p
-//                 className="[text-shadow:_0_4px_8px_rgb(99_102_241_/_0.8)] 
-//                            text-white text-xl md:text-2xl leading-snug 
-//                            font-manrope font-extrabold"
-//               >
-//                 BET
-//               </p>
-//               <p
-//                 className="[text-shadow:_0_4px_8px_rgb(99_102_241_/_0.8)] 
-//                            text-white text-xl md:text-2xl leading-snug 
-//                            font-manrope font-extrabold"
-//               >
-//                 {Number(betAmount).toFixed(2)}{" "}
-//               </p>
-//             </button>
-//             {isAuto && (
-//               <div className="text-xsm xsm:text-sm flex items-center justify-center gap-1 xsm:gap-2">
-//                 <div className="text-gray flex items-center justify-start text-nowrap">
-//                   Auto Cash Out&nbsp;
-//                   <button>
-//                     {isAutoBetAndCashout.autoCashout ? (
-//                       <BiToggleRight
-//                         onClick={() =>
-//                           setIsAutoBetAndCashout((prev) => ({
-//                             ...prev,
-//                             autoCashout: false,
-//                           }))
-//                         }
-//                         className="text-white"
-//                         size={40}
-//                       />
-//                     ) : (
-//                       <BiToggleLeft
-//                         onClick={() =>
-//                           setIsAutoBetAndCashout((prev) => ({
-//                             ...prev,
-//                             autoCashout: true,
-//                           }))
-//                         }
-//                         className="text-white"
-//                         size={40}
-//                       />
-//                     )}{" "}
-//                   </button>
-//                 </div>
-//                 <input
-//                   value={predictedCashoutValue}
-//                   onChange={(e) => setPredictedCashoutValue(e.target.value)}
-//                   className="bg-black text-gray rounded-full px-[5px] w-14 xsm:w-20 py-[1px] flex items-center"
-//                 />
-//               </div>
-//             )}
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
-// export default BetButtonOne;
-/* eslint-disable react/prop-types */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BiToggleLeft, BiToggleRight } from "react-icons/bi";
-import { FiMinusCircle } from "react-icons/fi";
-import { LuCirclePlus } from "react-icons/lu";
+import { FiMinusCircle, FiPlusCircle } from "react-icons/fi";
 import { toast } from "react-toastify";
 import apis from "../utils/apis";
 import { socket } from "./AviatorSocket";
@@ -770,92 +224,106 @@ function BetButtonOne({ setBtn, setBetApiHitted }) {
     }
   }, [hotAirData]);
 
+  // Determine if button should be disabled
+  const isButtonDisabled = !betAmount || Number(betAmount) <= 0;
+
   return (
-    <div className="w-full py-2 lg:w-1/2 text-[11px] sm:text-sm px-2 bg-blackAviator2 rounded-md">
-      {/* Bet/Auto Toggle */}
-      <div className="flex w-full max-w-[180px] mx-auto justify-between bg-black rounded-full">
+    <div className="w-full py-3 lg:w-1/2 px-3 bg-blackAviator2 rounded-xl border border-gray-800">
+      {/* Bet/Auto Toggle - Improved Design */}
+      <div className="flex w-full bg-black rounded-full p-1 mb-3">
         <button
-          className={`flex-1 px-6 py-1 rounded-full text-center text-sm font-medium ${
-            !isAuto ? "bg-blackAviator3 text-white" : "bg-black text-white/60"
+          className={`flex-1 py-1.5 rounded-full text-center text-sm font-medium transition-all duration-300 ${
+            !isAuto 
+              ? "bg-gradient-to-r from-green-600 to-green-500 text-white shadow-lg shadow-green-500/25" 
+              : "text-gray-400 hover:text-white"
           }`}
           onClick={() => setIsAuto(false)}
         >
-          Bet
+          💰 Manual
         </button>
         <button
-          className={`flex-1 px-6 py-1 rounded-full text-center text-sm font-medium ${
-            isAuto ? "bg-blackAviator3 text-white" : "bg-black text-white/60"
+          className={`flex-1 py-1.5 rounded-full text-center text-sm font-medium transition-all duration-300 ${
+            isAuto 
+              ? "bg-gradient-to-r from-green-600 to-green-500 text-white shadow-lg shadow-green-500/25" 
+              : "text-gray-400 hover:text-white"
           }`}
           onClick={() => setIsAuto(true)}
         >
-          Auto
+          🔄 Auto
         </button>
       </div>
 
-      {/* Main Content - Flex Layout */}
-      <div className="flex flex-col sm:flex-row items-center gap-2 mt-2 w-full">
-        {/* Left Section - Amount Controls */}
-        <div className="flex flex-col items-center w-full sm:w-[45%]">
-          <div className="flex w-full max-w-[150px] bg-black items-center text-xl justify-between px-2 py-0.5 rounded-full">
-            <button className="text-gray-400 hover:text-white transition-colors" onClick={handleDecrement}>
-              <FiMinusCircle size={20} />
+      {/* Main Content - Improved Layout */}
+      <div className="flex flex-col lg:flex-row items-stretch gap-3">
+        {/* Left Section - Amount Controls - IMPROVED */}
+        <div className="flex flex-col items-center w-full lg:w-[45%] gap-2">
+          {/* Amount Input - IMPROVED */}
+          <div className="flex w-full bg-black items-center justify-between px-3 py-1 rounded-xl border border-gray-700 hover:border-green-500 transition-colors">
+            <button 
+              className="text-gray-400 hover:text-green-500 transition-colors p-1" 
+              onClick={handleDecrement}
+            >
+              <FiMinusCircle size={22} />
             </button>
-            <input
-              inputMode="numeric"
-              type="text"
-              min="0"
-              value={betAmount}
-              onBeforeInput={(e) => {
-                const incomingValue = e.target.value + e.data;
-                const wallet = Number(myDetails?.data?.total_wallet || 0);
-                const isValid = /^\d+$/.test(incomingValue);
-                const numericVal = Number(incomingValue);
-                if (!isValid || numericVal > wallet) {
-                  e.preventDefault();
-                }
-              }}
-              onChange={(e) => {
-                const val = e.target.value.replace(/\D/g, "");
-                const numericVal = Number(val);
-                const wallet = Number(myDetails?.data?.total_wallet || 0);
-                if (numericVal <= wallet) {
-                  setBetAmount(val);
-                }
-              }}
-              className="text-white text-lg bg-transparent text-center w-14 outline-none no-spinner"
-            />
-            <button className="text-gray-400 hover:text-white transition-colors" onClick={handleIncrement}>
-              <LuCirclePlus size={20} />
+            
+            <div className="flex flex-col items-center">
+              <input
+                inputMode="numeric"
+                type="text"
+                min="0"
+                value={betAmount}
+                onBeforeInput={(e) => {
+                  const incomingValue = e.target.value + e.data;
+                  const wallet = Number(myDetails?.data?.total_wallet || 0);
+                  const isValid = /^\d+$/.test(incomingValue);
+                  const numericVal = Number(incomingValue);
+                  if (!isValid || numericVal > wallet) {
+                    e.preventDefault();
+                  }
+                }}
+                onChange={(e) => {
+                  const val = e.target.value.replace(/\D/g, "");
+                  const numericVal = Number(val);
+                  const wallet = Number(myDetails?.data?.total_wallet || 0);
+                  if (numericVal <= wallet) {
+                    setBetAmount(val);
+                  }
+                }}
+                className="text-white text-xl font-bold bg-transparent text-center w-16 outline-none"
+              />
+              <span className="text-[9px] text-gray-500 -mt-0.5">AMOUNT</span>
+            </div>
+            
+            <button 
+              className="text-gray-400 hover:text-green-500 transition-colors p-1" 
+              onClick={handleIncrement}
+            >
+              <FiPlusCircle size={22} />
             </button>
           </div>
           
-          <div className="flex gap-1 mt-1 items-center justify-center flex-wrap">
-            {[100, 200].map((amount) => (
+          {/* Quick Bets - IMPROVED with better styling */}
+          <div className="flex gap-1.5 items-center justify-center flex-wrap w-full">
+            {[100, 200, 500, 1000].map((amount) => (
               <button
                 key={amount}
-                className="px-2.5 py-0.5 bg-blackAviator3 text-gray-300 hover:text-white rounded-full text-[10px] transition-colors"
+                className={`px-3 py-1 rounded-full text-[10px] font-medium transition-all duration-200 ${
+                  betAmount === amount 
+                    ? "bg-green-600 text-white shadow-lg shadow-green-500/30 scale-105" 
+                    : "bg-blackAviator3 text-gray-400 hover:text-white hover:bg-gray-800"
+                }`}
                 onClick={() => handleQuickBet(amount)}
               >
-                {amount}.00
-              </button>
-            ))}
-          </div>
-          <div className="flex gap-1 mt-0.5 items-center justify-center flex-wrap">
-            {[500, 1000].map((amount) => (
-              <button
-                key={amount}
-                className="px-2.5 py-0.5 bg-blackAviator3 text-gray-300 hover:text-white rounded-full text-[10px] transition-colors"
-                onClick={() => handleQuickBet(amount)}
-              >
-                {amount}.00
+                ₹{amount}
               </button>
             ))}
           </div>
           
+          {/* Auto Bet Toggle - IMPROVED */}
           {isAuto && (
-            <div className="w-full mt-0.5 text-[10px] sm:text-xs text-gray flex items-center justify-center">
-              Auto Bet
-              <button className="ml-1">
+            <div className="w-full flex items-center justify-center gap-2 mt-1 p-1.5 bg-black rounded-lg">
+              <span className="text-[10px] text-gray-400 font-medium">Auto Bet</span>
+              <button>
                 {isAutoBetAndCashout.autoBet ? (
                   <BiToggleRight
                     onClick={() =>
@@ -865,7 +333,7 @@ function BetButtonOne({ setBtn, setBetApiHitted }) {
                       }))
                     }
                     className="text-green-500"
-                    size={32}
+                    size={30}
                   />
                 ) : (
                   <BiToggleLeft
@@ -876,7 +344,7 @@ function BetButtonOne({ setBtn, setBetApiHitted }) {
                       }))
                     }
                     className="text-gray-500"
-                    size={32}
+                    size={30}
                   />
                 )}
               </button>
@@ -884,24 +352,26 @@ function BetButtonOne({ setBtn, setBetApiHitted }) {
           )}
         </div>
 
-        {/* Right Section - Bet/Cancel Button */}
-        <div className="w-full sm:w-[55%]">
+        {/* Right Section - Action Button - IMPROVED */}
+        <div className="w-full lg:w-[55%] flex items-stretch">
           {betStatus ? (
             hotAirData?.status === 1 &&
             Number(localStorage.getItem("aviatorsr1")) ===
               Number(hotAirData?.period) ? (
-              <div className="w-full">
+              // Cashout State - IMPROVED
+              <div className="w-full flex flex-col gap-1.5">
                 <button
                   onClick={cashoutNormalBetHandler}
-                  className="text-white text-sm md:text-base font-extrabold w-full py-2 border-[2px] border-green-500 bg-yellow-500 rounded-full hover:bg-yellow-400 transition-colors"
+                  className="w-full flex-1 py-2.5 bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white text-xs font-bold rounded-xl transition-all duration-300 shadow-lg shadow-green-500/20 hover:shadow-green-500/40 hover:scale-[1.02] active:scale-95"
                 >
-                  Cashout
-                  <br />
-                  <span className="text-lg">{(betAmount * hotAirData?.timer).toFixed(2)}</span>
+                  <div className="flex items-center justify-center gap-2">
+                    <span>💰 CASHOUT</span>
+                    <span className="text-lg font-black">{(betAmount * hotAirData?.timer).toFixed(2)}</span>
+                  </div>
                 </button>
                 {isAuto && (
-                  <div className="flex items-center justify-center gap-1 mt-1 flex-wrap">
-                    <span className="text-[10px] text-gray">Auto Cash Out</span>
+                  <div className="flex items-center justify-center gap-1.5 bg-black rounded-lg p-1.5">
+                    <span className="text-[9px] text-gray-400">Auto Cashout</span>
                     <button>
                       {isAutoBetAndCashout.autoCashout ? (
                         <BiToggleRight
@@ -912,7 +382,7 @@ function BetButtonOne({ setBtn, setBetApiHitted }) {
                             }))
                           }
                           className="text-green-500"
-                          size={28}
+                          size={24}
                         />
                       ) : (
                         <BiToggleLeft
@@ -923,34 +393,35 @@ function BetButtonOne({ setBtn, setBetApiHitted }) {
                             }))
                           }
                           className="text-gray-500"
-                          size={28}
+                          size={24}
                         />
                       )}
                     </button>
                     <input
                       value={predictedCashoutValue}
                       onChange={(e) => setPredictedCashoutValue(e.target.value)}
-                      className="bg-black text-gray-300 rounded-full px-2 w-16 py-0.5 text-[10px] text-center"
+                      className="bg-blackAviator3 text-white rounded-lg px-2 w-14 py-0.5 text-[10px] text-center outline-none border border-gray-600 focus:border-green-500 transition-colors"
                     />
                   </div>
                 )}
               </div>
             ) : (
-              <div className="w-full">
+              // Cancel State - IMPROVED
+              <div className="w-full flex flex-col gap-1.5">
                 {hotAirData?.status === 1 && (
-                  <p className="text-[#F85050] text-[10px] text-center">
-                    Waiting for next round
+                  <p className="text-red-400 text-[10px] text-center animate-pulse">
+                    ⏳ Waiting for next round
                   </p>
                 )}
                 <button
                   onClick={cancelNormalBetHandler}
-                  className="text-white text-sm md:text-base font-extrabold w-full py-2 border-[2px] border-red-500 bg-red-600 rounded-full hover:bg-red-700 transition-colors"
+                  className="w-full flex-1 py-2.5 bg-gradient-to-r from-red-600 to-rose-500 hover:from-red-700 hover:to-rose-600 text-white text-xs font-bold rounded-xl transition-all duration-300 shadow-lg shadow-red-500/20 hover:shadow-red-500/40 hover:scale-[1.02] active:scale-95"
                 >
-                  Cancel
+                  ❌ CANCEL BET
                 </button>
                 {isAuto && (
-                  <div className="flex items-center justify-center gap-1 mt-1 flex-wrap">
-                    <span className="text-[10px] text-gray">Auto Cash Out</span>
+                  <div className="flex items-center justify-center gap-1.5 bg-black rounded-lg p-1.5">
+                    <span className="text-[9px] text-gray-400">Auto Cashout</span>
                     <button>
                       {isAutoBetAndCashout.autoCashout ? (
                         <BiToggleRight
@@ -961,7 +432,7 @@ function BetButtonOne({ setBtn, setBetApiHitted }) {
                             }))
                           }
                           className="text-green-500"
-                          size={28}
+                          size={24}
                         />
                       ) : (
                         <BiToggleLeft
@@ -972,32 +443,37 @@ function BetButtonOne({ setBtn, setBetApiHitted }) {
                             }))
                           }
                           className="text-gray-500"
-                          size={28}
+                          size={24}
                         />
                       )}
                     </button>
                     <input
                       value={predictedCashoutValue}
                       onChange={(e) => setPredictedCashoutValue(e.target.value)}
-                      className="bg-black text-gray-300 rounded-full px-2 w-16 py-0.5 text-[10px] text-center"
+                      className="bg-blackAviator3 text-white rounded-lg px-2 w-14 py-0.5 text-[10px] text-center outline-none border border-gray-600 focus:border-red-500 transition-colors"
                     />
                   </div>
                 )}
               </div>
             )
           ) : (
-            <div className="w-full">
+            // Bet State - IMPROVED
+            <div className="w-full flex flex-col gap-1.5">
               <button
                 onClick={normalBetHandler}
-                className="w-full py-2 border-[2px] border-green-500 bg-green-600 text-white text-sm md:text-base rounded-full font-extrabold hover:bg-green-700 transition-colors"
+                disabled={isButtonDisabled}
+                className={`w-full flex-1 py-2.5 bg-gradient-to-r from-green-600 to-emerald-500 text-white text-xs font-bold rounded-xl transition-all duration-300 shadow-lg shadow-green-500/20 hover:shadow-green-500/40 hover:scale-[1.02] active:scale-95 ${
+                  isButtonDisabled ? "opacity-50 cursor-not-allowed hover:scale-100" : ""
+                }`}
               >
-                BET
-                <br />
-                <span className="text-lg">{Number(betAmount).toFixed(2)}</span>
+                <div className="flex items-center justify-center gap-2">
+                  <span>🚀 PLACE BET</span>
+                  <span className="text-lg font-black">₹{Number(betAmount).toFixed(2)}</span>
+                </div>
               </button>
               {isAuto && (
-                <div className="flex items-center justify-center gap-1 mt-1 flex-wrap">
-                  <span className="text-[10px] text-gray">Auto Cash Out</span>
+                <div className="flex items-center justify-center gap-1.5 bg-black rounded-lg p-1.5">
+                  <span className="text-[9px] text-gray-400">Auto Cashout</span>
                   <button>
                     {isAutoBetAndCashout.autoCashout ? (
                       <BiToggleRight
@@ -1008,7 +484,7 @@ function BetButtonOne({ setBtn, setBetApiHitted }) {
                           }))
                         }
                         className="text-green-500"
-                        size={28}
+                        size={24}
                       />
                     ) : (
                       <BiToggleLeft
@@ -1019,14 +495,14 @@ function BetButtonOne({ setBtn, setBetApiHitted }) {
                           }))
                         }
                         className="text-gray-500"
-                        size={28}
+                        size={24}
                       />
                     )}
                   </button>
                   <input
                     value={predictedCashoutValue}
                     onChange={(e) => setPredictedCashoutValue(e.target.value)}
-                    className="bg-black text-gray-300 rounded-full px-2 w-16 py-0.5 text-[10px] text-center"
+                    className="bg-blackAviator3 text-white rounded-lg px-2 w-14 py-0.5 text-[10px] text-center outline-none border border-gray-600 focus:border-green-500 transition-colors"
                   />
                 </div>
               )}

@@ -20,7 +20,7 @@ const ViewAllGamesPage = () => {
     <div className="min-h-screen bg-black text-white">
       {/* Fixed Header with Back Button */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-sm border-b border-white/10">
-        <div className="max-w-md mx-auto px-4 py-3">
+        <div className="max-w-xl mx-auto px-4 py-3">
           <div className="flex items-center gap-3">
             <Link
               to="/"
@@ -43,7 +43,7 @@ const ViewAllGamesPage = () => {
 
       {/* Main Content */}
       <div className="pt-20 pb-24">
-        <div className="max-w-md mx-auto px-4">
+        <div className="max-w-xl mx-auto px-4">
           
           {/* Render based on game type */}
           {sectionType === "live" && (

@@ -289,12 +289,12 @@ export default function AddAccountModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[999] bg-black/70 backdrop-blur-sm flex items-center justify-center px-4">
+    <div className="fixed inset-0 z-999 bg-black/70 backdrop-blur-sm flex items-center justify-center px-4">
 
       <div
         className="
           w-full
-          max-w-sm
+          max-w-xl
 
           bg-[#101010]
           text-white

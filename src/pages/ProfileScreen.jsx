@@ -65,7 +65,7 @@ export default function ProfileScreen() {
 
   return (
     <div className=" bg-black text-white">
-      <div className="max-w-md mx-auto px-4 py-4">
+      <div className="max-w-xl mx-auto px-4 py-4">
 
 
 

@@ -34,7 +34,7 @@ const VipPage = () => {
      
       {/* Main Content - Same width as HomePage (max-w-md) */}
       <div className="pt-8 pb-2">
-        <div className="max-w-md mx-auto px-4">
+        <div className="max-w-xl mx-auto px-4">
 
           {/* Live Games Section */}
           <div className="mb-8">

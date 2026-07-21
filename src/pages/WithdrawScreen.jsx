@@ -68,7 +68,7 @@ export default function WithdrawScreen() {
       />
 
       <div className=" bg-black text-white pb-2">
-        <div className="max-w-md mx-auto px-4 py-4">
+        <div className="max-w-xl mx-auto px-4 py-4">
 
           {/* Header */}
           <div className="relative flex items-center justify-center mb-4">
@@ -129,7 +129,7 @@ export default function WithdrawScreen() {
               h-10
               rounded-[14px]
               border border-yellow-500/10
-              bg-gradient-to-b
+              bg-linear-to-b
               from-[#111]
               to-[#0C0C0C]
               flex items-center justify-between

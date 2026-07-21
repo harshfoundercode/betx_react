@@ -20,7 +20,10 @@ import AccountStatementScreen from "./pages/TransactionHistry";
 import WinGo from "./Lottery/WinGo";
 import AvitatorLayout from "./AviatorGame/AvitatorLayout";
 import AviatorHome from "./AviatorGame/AviatorHome";
-// import Game from "./ChickenRoadGame/GameComponent/Game";
+import ChickenRoadLayout from "./ChickenRoadGame/GameComponent/ChickenRoadLayout";
+import ChickenRoadGame from "./ChickenRoadGame/GameComponent/Game";
+
+
 
 function App() {
   return (
@@ -89,21 +92,24 @@ function App() {
               path="/aviator"
               element={
                 <PublicRoute>
-                   <div className="bg-black">
+                  <div className="bg-black">
                     <AviatorHome />
                   </div>
-                  
+
                 </PublicRoute>
               }
             />
-            {/* <Route
-              path="/chickenRoadGame"
+         
+            <Route
+              path="/chickenRoad"
               element={
                 <PublicRoute>
-                  <Game />
+                  <div className="h-screen w-screen overflow-hidden bg-black">
+                    <ChickenRoadLayout component={<ChickenRoadGame />} />
+                  </div>
                 </PublicRoute>
               }
-            /> */}
+            />
           </Routes>
         </SocketProvider>
       </AuthProvider>

@@ -8,10 +8,8 @@ import Fire from "../assets/Game/fireGif2.webp";
 import fregement1 from "../assets/Game/fregment 1.png";
 import fregement2 from "../assets/Game/fregement 2.png";
 import bigFire from "../assets/Game/bigFire.gif";
-// import goldenEgg from "../assets/Game/golden_egg_wall.png";
 import goldenEgg from "../assets/Game2/sten.png";
 import goldEgg2 from "../assets/Game/golden_egg.png";
-// import goldEgg from "../assets/Game/golden_egg.png"
 import goldEgg from "../assets/Game2/light-bask.png";
 import chicken_dead_voice from "../assets/music/chicken_dead_voice.mp3";
 import bg_music from "../assets/music/bg_music.mp3";
@@ -19,7 +17,6 @@ import useApi from "../hooks/useApi";
 import {apis}  from "../../ChickenRoadGame/utils/apis";
 import { toast } from "react-toastify";
 import WinAmountModal from "../Modal/WinAmount";
-// import Login from "../Auth/Login"
 import LoadingPage from  "./LoadingPage"
 
 export default function Game() {

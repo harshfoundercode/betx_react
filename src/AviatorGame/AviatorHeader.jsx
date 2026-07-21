@@ -147,12 +147,7 @@ function AviatorHeader({
       <header className="flex items-center bg-blackAviator2 text-blackAviatorText justify-between h-[3.22rem] px-3">
         <audio ref={audioRefCrash} src={crashmusic} preload="auto" />
         <audio ref={audioRef} src={backgroundMusic} preload="auto" />
-        <img
-          className="w-22 h-12  object-fill cursor-pointer"
-          src={usawinlogo}
-          alt="Logo"
-          onClick={()=>navigate("/")}
-        />
+        
         <div className="flex items-center gap-2 text-xsm relative">
           {/* <div
             className="flex bg-yellow rounded-full px-2 py-1 text-white cursor-pointer"
