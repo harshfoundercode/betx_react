@@ -378,8 +378,8 @@ function AviatorHome() {
       setHotAirData(q);
     };
 
-    socket.on("demobdg_aviator", handleSocket);
-    return () => socket.off("demobdg_aviator", handleSocket);
+    socket.on("betx_aviator", handleSocket);
+    return () => socket.off("betx_aviator", handleSocket);
   }, []);
   
   const getPreviousResult = async () => {

@@ -47,8 +47,8 @@ function AviatorHeader({
     };
 
     // socket.on("demo_aviator", handleSocket);
-    socket.on("demobdg_aviator", handleSocket);
-    return () => socket.off("demobdg_aviator", handleSocket);
+    socket.on("betx_aviator", handleSocket);
+    return () => socket.off("betx_aviator", handleSocket);
   }, []);
   const [isOpen, setIsOpen] = useState(false);
   // const [isSoundOn, setIsSoundOn] = useState(true);

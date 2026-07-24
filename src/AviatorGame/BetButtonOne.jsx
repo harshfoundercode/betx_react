@@ -30,8 +30,8 @@ function BetButtonOne({ setBtn, setBetApiHitted }) {
       const q = JSON.parse(hotair);
       setHotAirData(q);
     };
-    socket.on("demobdg_aviator", handleSocket);
-    return () => socket.off("demobdg_aviator", handleSocket);
+    socket.on("betx_aviator", handleSocket);
+    return () => socket.off("betx_aviator", handleSocket);
   }, []);
 
   const handleIncrement = () => setBetAmount((prev) => Number(prev) + 1);

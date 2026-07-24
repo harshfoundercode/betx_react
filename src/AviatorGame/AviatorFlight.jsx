@@ -676,8 +676,8 @@ function AviatorFlight({ changeBg, setChangeBg, isSoundOn, setIsSoundOn, isPathR
             const q = JSON.parse(hotair);
             setHotAirData(q);
         };
-        socket.on("demobdg_aviator", handleSocket);
-        return () => socket.off("demobdg_aviator", handleSocket);
+        socket.on("betx_aviator", handleSocket);
+        return () => socket.off("betx_aviator", handleSocket);
     }, []);
 
     // Update stage size on resize

@@ -59,8 +59,8 @@ function AllBets({ setTotalBetValue }) {
         };
 
         // socket.on("demo_aviator", handleSocket);
-        socket.on("demobdg_aviator", handleSocket);
-        return () => socket.off("demobdg_aviator", handleSocket);
+        socket.on("betx_aviator", handleSocket);
+        return () => socket.off("betx_aviator", handleSocket);
     }, []);
     // console.log("hotAirData", hotAirData)
 

@@ -5,8 +5,8 @@ import io from "socket.io-client";
 const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
-  const domain = "https://aviatorudaan.com/";
-  const socket = useMemo(() => io(domain), []);
+  const domain = "https://jupitergames.vip/";
+  const socket = useMemo(() => io(domain), []); 
 
   const [timers, setTimers] = useState({
     type1: 0,
@@ -16,7 +16,7 @@ export const SocketProvider = ({ children }) => {
     type5: 0,
   });
 
-  const [eventName, setEventName] = useState("bigcasino_wingo");  // Default event name
+  const [eventName, setEventName] = useState("betx_wingo");  // Default event name
 
   useEffect(() => {
     const handleTimer = (data) => { 
