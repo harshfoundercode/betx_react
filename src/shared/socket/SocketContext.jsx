@@ -19,7 +19,7 @@ export const SocketProvider = ({ children }) => {
   const [eventName, setEventName] = useState("bigcasino_wingo");  // Default event name
 
   useEffect(() => {
-    const handleTimer = (data) => {
+    const handleTimer = (data) => { 
       // console.log("data received from socket:", data);
       const q = JSON.parse(data);
       const { timerBetTime, oneMinTimer, threeMinTimer, fiveMinTimer, tenMinTimer } = q;

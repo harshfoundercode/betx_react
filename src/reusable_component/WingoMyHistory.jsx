@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import noData from "../assets/images/no_data_available.png"
+import noData from "../assets/wingo/no_data_available.png"
 
 const WingoMyHistory = ({ myHistoryData, handlehistorybox }) => {
     const [activeIndex, setActiveIndex] = useState(null);

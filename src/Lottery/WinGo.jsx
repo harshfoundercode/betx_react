@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import zero from "../assets/images/zero.png"
-import one from "../assets/images/one.png"
-import two from "../assets/images/two.png"
-import three from "../assets/images/three.png"
-import four from "../assets/images/four.png"
-import five from "../assets/images/five.png"
-import six from "../assets/images/six.png"
-import seven from "../assets/images/seven.png"
-import eight from "../assets/images/eight.png"
-import nine from "../assets/images/nine.png"
+import zero from "../assets/wingo/zero.png"
+import one from "../assets/wingo/one.png"
+import two from "../assets/wingo/two.png"
+import three from "../assets/wingo/three.png"
+import four from "../assets/wingo/four.png"
+import five from "../assets/wingo/five.png"
+import six from "../assets/wingo/six.png"
+import seven from "../assets/wingo/seven.png"
+import eight from "../assets/wingo/eight.png"
+import nine from "../assets/wingo/nine.png"
 import LotteryTimer from '../reusable_component/LotteryTimer';
 import TimerModal from '../reusable_component/TimerModal';
 import LotteryBetModal from '../reusable_component/LotteryBetModal';
@@ -21,20 +21,20 @@ import WingoWinnerAnnoucement from '../reusable_component/WingoWinnerAnnoucement
 import GameHistoryBox from '../reusable_component/WingoGameHistory';
 import WingoPagination from '../reusable_component/WingoPagination';
 import countdownone from '../assets/music/countdownone.mp3';
-import mainWallet from "../assets/usaAsset/wingo/mainWallet.png"
+import mainWallet from "../assets/wingo/mainWallet.png"
 // src = "/src/assets/usaAsset/account/withdrawHis.png";
-import mainWallet2 from "../assets/usaAsset/account/wingoWallet.png";
-import cutBg1 from "../assets/usaAsset/wingo/timerbg.png"
-import grayWatch from "../assets/usaAsset/wingo/grayWatch.png"
-import redWatch from "../assets/usaAsset/wingo/redWatch.png"
-import walletbg from "../assets/usaAsset/walletbg.png"
+import mainWallet2 from "../assets/wingo/wingoWallet.png";
+import cutBg1 from "../assets/wingo/timerbg.png"
+import grayWatch from "../assets/wingo/grayWatch.png"
+import redWatch from "../assets/wingo/redWatch.png"
+import walletbg from "../assets/wingo/walletbg.png"
 import { Link } from 'react-router-dom';
 import { HiArrowPathRoundedSquare } from 'react-icons/hi2';
 import { RiFireFill } from 'react-icons/ri';
 import Header from '../components/Header';
 import { useSocket } from "../shared/socket/SocketContext"
 import WingoRules from './WingoRules';
-import micphone from "../assets/usaAsset/micphone.png"
+import micphone from "../assets/wingo/micphone.png"
 const profileApi = apis.profile
 const wingo_bet_api = apis.wingo_bet
 const wingo_my_history = apis.wingo_my_history
@@ -470,10 +470,10 @@ const WinGo = () => {
       <div className="h-screen overflow-hidden max-w-100 mx-auto">
         <audio ref={audioRef} src={countdownone} preload="auto" />
         <div className=" h-full font-roboto overflow-y-auto hide-scrollbar">
-          <div className="bg-black h-[19rem] rounded-b-[55px] px-4 pt-2">
+          <div className="bg-black h-76 rounded-b-[55px] px-4 pt-2">
             {/* 1st div */}
             <div
-              className="p-5 h-[9rem] text-white bg-[#4D4D4C] rounded-3xl "
+              className="p-5 h-36 text-white bg-[#4D4D4C] rounded-3xl "
               style={{
                 backgroundImage: `url(${walletbg})`,
                 backgroundPosition: "center",
@@ -512,9 +512,9 @@ const WinGo = () => {
             {/* 2nd div */}
             <div className="flex justify-between w-full bg-redLight p-2 rounded-full text-white opacity-75 mt-6 items-center min-h-16">
               <div className="flex items-center flex-1 min-w-0 gap-1">
-                <img className="h-5 w-5 flex-shrink-0" src={micphone} alt="ds" />
+                <img className="h-5 w-5 shrink-0" src={micphone} alt="ds" />
                 <div
-                  className={`font-bold pl-1 text-[10px] xsm:text-xs transition-all duration-1000 ease-in-out ${animate ? "opacity-0 translate-y-[-100%]" : "opacity-100 translate-y-0"
+                  className={`font-bold pl-1 text-[10px] xsm:text-xs transition-all duration-1000 ease-in-out ${animate ? "opacity-0 -translate-y-full" : "opacity-100 translate-y-0"
                     }`}
                   style={{
                     overflow: "hidden",
@@ -529,7 +529,7 @@ const WinGo = () => {
                   {notes[0]} {/* Ya jo bhi index use kar rahe hain */}
                 </div>
               </div>
-              <div className="shrink-0 py-0.5 text-xsm px-4 bg-gradient-to-r from-[#EDD188] to-[#C79744] text-black flex gap-1 justify-center items-center rounded-3xl ml-2">
+              <div className="shrink-0 py-0.5 text-xsm px-4 bg-linear-to-r from-[#EDD188] to-[#C79744] text-black flex gap-1 justify-center items-center rounded-3xl ml-2">
                 <RiFireFill className="text-black" />
                 Detail
               </div>
@@ -546,7 +546,7 @@ const WinGo = () => {
                 <div
                   key={item.time}
                   className={`flex flex-col col-span-1 rounded-xl items-center px-2 py-2 cursor-pointer ${selectedIMgIndex === item.time
-                    ? "bg-gradient-to-b from-[#EDD188] to-[#C79744] text-[#975206]"
+                    ? "bg-linear-to-b from-[#EDD188] to-[#C79744] text-[#975206]"
                     : ""
                     }`}
                   onClick={() => {
@@ -773,7 +773,7 @@ const WinGo = () => {
                 key={i}
                 onClick={() => handlehistoryClick(i)}
                 className={`flex items-center justify-center w-[33%] text-xsm py-2 rounded-lg ${selectedHistoryIndex === i
-                  ? "bg-gradient-to-r from-[#EDD188] to-[#C79744] text-[#925506] font-semibold"
+                  ? "bg-linear-to-r from-[#EDD188] to-[#C79744] text-[#925506] font-semibold"
                   : "bg-[#333332] text-[#929285]"
                   }`}
               >
@@ -810,7 +810,7 @@ const WinGo = () => {
               nextDisabled={!myHistoryHasMore}
             />
           ) : handlehistorybox === 1 ? (
-            <div className="-mt-[30px] z-50">
+            <div className="-mt-7.5 z-50">
               <WingoPagination
                 currentPage={currentPage}
                 totalPages={`/${Math.ceil(

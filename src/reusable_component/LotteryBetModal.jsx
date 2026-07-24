@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { FaCheckCircle, FaMinus, FaPlus, FaRegCircle } from "react-icons/fa";
 import { toast } from "react-toastify";
-import howtoplayheader from ".././assets/images/howtoplayheader.png";
+import howtoplayheader from ".././assets/wingo/howtoplayheader.png";
 import Loader  from "./Loader/Loader";
 import apis from "../utils/apis";
 import { useNavigate } from "react-router-dom";

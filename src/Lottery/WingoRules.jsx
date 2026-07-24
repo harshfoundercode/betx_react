@@ -64,7 +64,7 @@ const gameRules = {
   
     return (
       <div className="fixed inset-0 h-screen flex items-center justify-center bg-black bg-opacity-50 z-50 transition-opacity">
-        <div className={`relative w-[281px] h-[450px] z-50 ${bgColor} rounded-lg shadow-lg flex flex-col items-center`}>
+        <div className={`relative w-70.25 h-112.5 z-50 ${bgColor} rounded-lg shadow-lg flex flex-col items-center`}>
           <p className={`absolute text-[16px] top-0 left-0 w-full text-center ${headerBg} py-2 rounded-t-lg`}>
             How to play
           </p>
@@ -75,7 +75,7 @@ const gameRules = {
           </div>
           <div className="w-full rounded-b-lg bg-redLight p-3 h-28 flex items-center justify-center">
             <button
-              className="bg-gradient-to-r from-customlightbtn to-customdarkBluebtn text-white px-16 py-2 rounded-full"
+              className="bg-linear-to-r from-customlightbtn to-customdarkBluebtn text-white px-16 py-2 rounded-full"
               onClick={() => setPlayRule(false)}
             >
               Close

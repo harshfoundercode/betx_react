@@ -307,18 +307,356 @@
 
 // export default AviatorFlight;
 /* eslint-disable react/prop-types */
+// import { useEffect, useState, useRef } from "react";
+// import { Stage, Layer, Line } from "react-konva";
+// import aviator from "../assets/usaAsset/aviator/aviator.gif";
+// import fan_aviator from "../assets/usaAsset/aviator/fan_aviator.gif";
+// import chakra from "../assets/usaAsset/aviator/chakra.png";
+// import { socket } from "./AviatorSocket";
+// import ProgressBarIndicator from "./ProgressBarIndicator";
+// import bg_one from '../assets/usaAsset/aviator/bg_one.png';
+// import bg_two from '../assets/usaAsset/aviator/bg_two.png';
+// import bg_three from '../assets/usaAsset/aviator/bg_three.png';
+// import bg_four from '../assets/usaAsset/aviator/bg_four.png';
+// import bg_five from '../assets/usaAsset/aviator/bg_five.png';
+
+// function AviatorFlight({ changeBg, setChangeBg, isSoundOn, setIsSoundOn, isPathRemoved, setIsPathRemoved }) {
+//     const [isOscillating, setIsOscillating] = useState(false);
+//     const [isResetting, setIsResetting] = useState(false);
+//     const [isModalOpen, setIsModalOpen] = useState(false);
+//     const [aviatorX, setAviatorX] = useState(0);
+//     const [aviatorY, setAviatorY] = useState(0);
+//     const [trajectoryPoints, setTrajectoryPoints] = useState([]);
+//     const parentRef = useRef(null);
+//     const [dots, setDots] = useState([]);
+//     let oscillationStartY = 0;
+//     const [hotAirData, setHotAirData] = useState(null);
+    
+//     useEffect(() => {
+//         const handleSocket = (hotair) => {
+//             const q = JSON.parse(hotair);
+//             setHotAirData(q);
+//         };
+//         socket.on("demobdg_aviator", handleSocket);
+//         return () => socket.off("demobdg_aviator", handleSocket);
+//     }, []);
+
+//     useEffect(() => {
+//         const img = localStorage.getItem("aviatorBg")
+//         if (img) {
+//             setChangeBg({ modal: false, selectBg: false, image: img })
+//         }
+//     }, [changeBg?.selectBg])
+
+//     useEffect(() => {
+//         if (hotAirData?.status === 0) {
+//             setIsResetting(true);
+//             setAviatorX(-1000);
+//             setAviatorY(-1000);
+
+//             setTimeout(() => {
+//                 setAviatorX(0);
+//                 setAviatorY(0);
+//                 setTrajectoryPoints([]);
+//                 setIsResetting(false);
+//                 setIsModalOpen(true);
+//             }, 50);
+//         }
+//         if (hotAirData?.status === 1) setIsSoundOn(true)
+//     }, [hotAirData?.status]);
+
+//     useEffect(() => {
+//         let animationFrame;
+//         let startTime = performance.now();
+//         let duration = 7000;
+//         let parentWidth = 800, parentHeight = 600;
+//         let oscillationFactor = 0;
+
+//         function updateDimensions() {
+//             if (parentRef.current) {
+//                 parentWidth = parentRef.current.clientWidth;
+//                 parentHeight = parentRef.current.clientHeight;
+//             }
+//         }
+
+//         function animate(time) {
+//             updateDimensions();
+//             let elapsed = time - startTime;
+
+//             if (hotAirData?.status === 0) {
+//                 if (hotAirData?.status === 0) {
+//                     setIsResetting(true);
+//                     setAviatorX(-1000);
+//                     setAviatorY(-1000);
+
+//                     setTimeout(() => {
+//                         setAviatorX(0);
+//                         setAviatorY(0);
+//                         setTrajectoryPoints([]);
+//                         setIsResetting(false);
+//                         setIsModalOpen(true);
+//                     }, 50);
+//                 }
+//                 setIsModalOpen(true);
+//             } else if (hotAirData?.status === 1) {
+//                 const screenWidth = window.innerWidth;
+//                 setIsModalOpen(false);
+//                 let progress = Math.min(elapsed / duration, 1);
+//                 let curveY = Math.pow(progress, 2.5) * 0.66 * parentHeight;
+//                 let curveX = progress * 0.65 * parentWidth;
+                
+//                 // Mobile optimizations
+//                 if (screenWidth < 640) {
+//                     curveY = Math.pow(progress, 2.5) * 0.55 * parentHeight;
+//                     curveX = progress * 0.60 * parentWidth;
+//                 } else if (screenWidth < 768) {
+//                     curveY = Math.pow(progress, 2.5) * 0.60 * parentHeight;
+//                     curveX = progress * 0.62 * parentWidth;
+//                 } else {
+//                     curveY = Math.pow(progress, 2.5) * 0.76 * parentHeight;
+//                     curveX = progress * 0.75 * parentWidth;
+//                 }
+
+//                 if (progress < 1) {
+//                     setAviatorX(curveX);
+//                     setAviatorY(-curveY);
+//                     setTrajectoryPoints((prev) => [...prev, { x: curveX, y: curveY }]);
+//                     oscillationStartY = -curveY;
+//                 } else {
+//                     if (!isOscillating) {
+//                         setIsOscillating(true);
+//                     }
+//                     oscillationFactor = Math.sin(time / 200) * 0.5;
+//                     setAviatorY((prevY) => prevY + oscillationFactor);
+//                     setTrajectoryPoints((prev) => prev.map((p) => ({
+//                         x: p.x,
+//                         y: p.y + oscillationFactor * (p.y / oscillationStartY)
+//                     })));
+//                 }
+//             } else if (hotAirData?.status === 2) {
+//                 setIsOscillating(false);
+//                 let flyProgress = Math.min(elapsed / 2000, 1);
+//                 let flyX = aviatorX + flyProgress * 2.5 * parentWidth;
+//                 let flyY = aviatorY - flyProgress * 1.5 * parentHeight;                
+//                 setAviatorX(flyX);
+//                 setAviatorY(flyY);
+//                 setTrajectoryPoints([]);
+//                 if (!isModalOpen) {
+//                     setIsModalOpen(true);
+//                 }
+//             }
+//             animationFrame = requestAnimationFrame(animate);
+//         }
+
+//         if (hotAirData?.status > 0) {
+//             animationFrame = requestAnimationFrame(animate);
+//         }
+
+//         return () => cancelAnimationFrame(animationFrame);
+//     }, [hotAirData?.status]);
+
+//     useEffect(() => {
+//         let animationFrame;
+//         const dotSpeed = 1;
+//         const dotSpacing = 50;
+
+//         function initializeDots() {
+//             let dotsArray = [];
+//             let parentWidth = parentRef.current?.clientWidth || 800;
+//             let parentHeight = parentRef.current?.clientHeight || 600;
+
+//             for (let i = 0; i < Math.ceil(parentWidth / dotSpacing); i++) {
+//                 for (let j = 0; j < Math.ceil(parentHeight / dotSpacing); j++) {
+//                     dotsArray.push({
+//                         id: `${i}-${j}`,
+//                         x: i * dotSpacing,
+//                         y: j * dotSpacing,
+//                     });
+//                 }
+//             }
+//             return dotsArray;
+//         }
+
+//         function animateDots() {
+//             setDots((prevDots) =>
+//                 prevDots.map((dot) => ({
+//                     id: dot.id,
+//                     x: dot.x + dotSpeed < parentRef.current?.clientWidth ? dot.x + dotSpeed : 0,
+//                     y: dot.y + dotSpeed < parentRef.current?.clientHeight ? dot.y + dotSpeed : 0,
+//                 }))
+//             );
+//             animationFrame = requestAnimationFrame(animateDots);
+//         }
+
+//         if ((hotAirData?.status === 1 || hotAirData?.status === 2) && dots.length === 0) {
+//             setDots(initializeDots());
+//         }
+
+//         if (hotAirData?.status === 1 || hotAirData?.status === 2) {
+//             animationFrame = requestAnimationFrame(animateDots);
+//         }
+
+//         return () => cancelAnimationFrame(animationFrame);
+//     }, [hotAirData?.status]);
+
+//     const linePoints = trajectoryPoints.flatMap((p) => [p.x, parentRef.current?.clientHeight - p.y]);
+//     const filledPolygon = [
+//         0, parentRef.current?.clientHeight || 0,
+//         ...linePoints,
+//         trajectoryPoints.length ? trajectoryPoints.at(-1).x : 0, parentRef.current?.clientHeight || 0,
+//     ];
+
+//     // Background image selection
+//     const getBackground = () => {
+//         switch(changeBg?.image) {
+//             case "1": return bg_one;
+//             case "2": return bg_two;
+//             case "3": return bg_three;
+//             case "4": return bg_four;
+//             case "5": return bg_five;
+//             default: return null;
+//         }
+//     };
+
+//     const bgImage = getBackground();
+
+//     return (
+//         <div ref={parentRef} className="h-full relative border-[0.2px] overflow-hidden border-gray rounded-2xl">
+            
+//             {/* Modal Overlay */}
+//             {isModalOpen && (
+//                 <div className="absolute top-[30%] left-1/2 -translate-x-1/2 z-40 p-4 w-[90%] max-w-[350px] flex flex-col items-center justify-center">
+//                     {hotAirData?.status == 2 ? (
+//                         <div className={`text-center [text-shadow:_0_4px_8px_rgb(99_102_241_/_0.8)] 
+//                             text-white leading-snug font-manrope font-extrabold 
+//                             ${(changeBg?.image === "3" || changeBg?.image === "5") ? "text-yellow" : "text-white"}`}>
+//                             <p className="text-[1.5rem] sm:text-[2rem]">Flew away!</p>
+//                             <span className={`text-[2.5rem] sm:text-[4rem] font-extrabold text-[#F85050] 
+//                                 ${(changeBg?.image === "3" || changeBg?.image === "5") ? "text-yellow" : "text-white"}`}>
+//                                 {hotAirData?.timer}x
+//                             </span>
+//                         </div>
+//                     ) : (
+//                         <div className="flex flex-col items-center justify-center">
+//                             <img 
+//                                 src={fan_aviator} 
+//                                 className="w-32 h-32 sm:w-48 sm:h-48" 
+//                                 alt="Loading" 
+//                             />
+//                             <p className={`[text-shadow:_0_4px_8px_rgb(99_102_241_/_0.8)] 
+//                                 text-white leading-snug font-manrope font-extrabold text-center
+//                                 ${(changeBg?.image === "3" || changeBg?.image === "5") ? "text-yellow" : "text-white"} 
+//                                 text-[1rem] sm:text-[1.5rem] mt-2`}>
+//                                 Waiting for next round {hotAirData?.betTime}
+//                             </p>
+//                             <ProgressBarIndicator timer={100} />
+//                         </div>
+//                     )}
+//                 </div>
+//             )}
+
+//             {/* Konva Stage for Trajectory */}
+//             <Stage 
+//                 width={parentRef.current?.clientWidth || 800} 
+//                 height={parentRef.current?.clientHeight || 600} 
+//                 className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 z-40 pointer-events-none"
+//             >
+//                 <Layer>
+//                     {!isPathRemoved && <Line points={filledPolygon} fill="rgba(207, 32, 48, 0.6)" closed />}
+//                     {!isPathRemoved && <Line points={linePoints} stroke="#DE003D" strokeWidth={4} />}
+//                 </Layer>
+//             </Stage>
+
+//             {/* Timer Display */}
+//             {hotAirData?.status === 1 && (
+//                 <div className={`[text-shadow:_0_4px_8px_rgb(99_102_241_/_0.8)] 
+//                     text-white leading-snug font-manrope font-extrabold 
+//                     absolute left-1/2 -translate-x-1/2 top-[30%] 
+//                     ${(changeBg?.image === "3" || changeBg?.image === "5") ? "text-yellow" : "text-white"} 
+//                     text-[2rem] sm:text-[4rem] z-40`}>
+//                     {hotAirData?.timer}x
+//                 </div>
+//             )}
+
+//             {/* Dots on Left */}
+//             {hotAirData?.status !== 2 && (
+//                 <>
+//                     <div className="absolute left-0 top-0 h-[calc(100%-24px)] w-3 sm:w-6 z-40 border-r-[2px] border-[#160408] overflow-hidden">
+//                         {dots.slice(0, 20).map((dot) => (
+//                             <div
+//                                 key={dot.id}
+//                                 className="w-0.5 h-0.5 sm:w-1 sm:h-1 bg-green rounded-full absolute left-1 sm:left-3"
+//                                 style={{ top: `${dot.y}px` }}
+//                             />
+//                         ))}
+//                     </div>
+                    
+//                     {/* Dots on Bottom */}
+//                     <div className="absolute right-0 bottom-0 w-[calc(100%-24px)] h-3 sm:h-6 z-40 border-t-[2px] border-[#160408] overflow-hidden">
+//                         {dots.slice(0, 20).map((dot) => (
+//                             <div
+//                                 key={dot.id}
+//                                 className="w-0.5 h-0.5 sm:w-1 sm:h-1 bg-green rounded-full absolute top-1 sm:top-2"
+//                                 style={{ left: `${dot.x}px` }}
+//                             />
+//                         ))}
+//                     </div>
+//                 </>
+//             )}
+
+//             {/* Aviator Image */}
+//             <div
+//                 className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 z-40 transition-transform duration-100"
+//                 style={{
+//                     transform: `translate(${aviatorX}px, ${aviatorY}px)`,
+//                     opacity: isResetting ? 0 : 1,
+//                 }}
+//             >
+//                 <img 
+//                     src={aviator} 
+//                     className="w-16 h-8 sm:w-24 sm:h-12 md:w-32 md:h-16" 
+//                     alt="aviator" 
+//                 />
+//             </div>
+
+//             {/* Background */}
+//             {bgImage ? (
+//                 <img 
+//                     className="w-full h-full object-cover bg-center" 
+//                     src={bgImage} 
+//                     alt="background" 
+//                 />
+//             ) : (
+//                 <div
+//                     className="absolute object-fill left-0 -bottom-[40rem] sm:-bottom-[50rem] lg:-bottom-[60rem] 
+//                         w-[320%] -ml-[160%] h-[500%] sm:h-[420%] md:h-[480%] lg:h-[520%] xl:h-[480%]"
+//                     style={{
+//                         backgroundImage: `url(${chakra})`,
+//                         backgroundPosition: "center",
+//                         backgroundSize: "cover",
+//                         backgroundRepeat: "no-repeat",
+//                         animation: hotAirData?.status === 1 ? "spin 15s linear infinite" : "none",
+//                     }}
+//                 />
+//             )}
+//         </div>
+//     );
+// }
+
+// export default AviatorFlight;
+
 import { useEffect, useState, useRef } from "react";
 import { Stage, Layer, Line } from "react-konva";
-import aviator from "../assets/usaAsset/aviator/aviator.gif";
-import fan_aviator from "../assets/usaAsset/aviator/fan_aviator.gif";
-import chakra from "../assets/usaAsset/aviator/chakra.png";
+import aviator from "../assets/aviator/aviator.gif";
+import fan_aviator from "../assets/aviator/fan_aviator.gif";
+import chakra from "../assets/aviator/chakra.png";
 import { socket } from "./AviatorSocket";
 import ProgressBarIndicator from "./ProgressBarIndicator";
-import bg_one from '../assets/usaAsset/aviator/bg_one.png';
-import bg_two from '../assets/usaAsset/aviator/bg_two.png';
-import bg_three from '../assets/usaAsset/aviator/bg_three.png';
-import bg_four from '../assets/usaAsset/aviator/bg_four.png';
-import bg_five from '../assets/usaAsset/aviator/bg_five.png';
+import bg_one from '../assets/aviator/bg_one.png';
+import bg_two from '../assets/aviator/bg_two.png';
+import bg_three from '../assets/aviator/bg_three.png';
+import bg_four from '../assets/aviator/bg_four.png';
+import bg_five from '../assets/aviator/bg_five.png';
 
 function AviatorFlight({ changeBg, setChangeBg, isSoundOn, setIsSoundOn, isPathRemoved, setIsPathRemoved }) {
     const [isOscillating, setIsOscillating] = useState(false);
@@ -331,6 +669,7 @@ function AviatorFlight({ changeBg, setChangeBg, isSoundOn, setIsSoundOn, isPathR
     const [dots, setDots] = useState([]);
     let oscillationStartY = 0;
     const [hotAirData, setHotAirData] = useState(null);
+    const [stageSize, setStageSize] = useState({ width: 800, height: 600 });
     
     useEffect(() => {
         const handleSocket = (hotair) => {
@@ -339,6 +678,22 @@ function AviatorFlight({ changeBg, setChangeBg, isSoundOn, setIsSoundOn, isPathR
         };
         socket.on("demobdg_aviator", handleSocket);
         return () => socket.off("demobdg_aviator", handleSocket);
+    }, []);
+
+    // Update stage size on resize
+    useEffect(() => {
+        const updateSize = () => {
+            if (parentRef.current) {
+                setStageSize({
+                    width: parentRef.current.clientWidth || 800,
+                    height: parentRef.current.clientHeight || 600
+                });
+            }
+        };
+        
+        updateSize();
+        window.addEventListener('resize', updateSize);
+        return () => window.removeEventListener('resize', updateSize);
     }, []);
 
     useEffect(() => {
@@ -369,7 +724,8 @@ function AviatorFlight({ changeBg, setChangeBg, isSoundOn, setIsSoundOn, isPathR
         let animationFrame;
         let startTime = performance.now();
         let duration = 7000;
-        let parentWidth = 800, parentHeight = 600;
+        let parentWidth = stageSize.width;
+        let parentHeight = stageSize.height;
         let oscillationFactor = 0;
 
         function updateDimensions() {
@@ -405,7 +761,7 @@ function AviatorFlight({ changeBg, setChangeBg, isSoundOn, setIsSoundOn, isPathR
                 let curveY = Math.pow(progress, 2.5) * 0.66 * parentHeight;
                 let curveX = progress * 0.65 * parentWidth;
                 
-                // Mobile optimizations
+                // Responsive adjustments based on screen width
                 if (screenWidth < 640) {
                     curveY = Math.pow(progress, 2.5) * 0.55 * parentHeight;
                     curveX = progress * 0.60 * parentWidth;
@@ -453,7 +809,7 @@ function AviatorFlight({ changeBg, setChangeBg, isSoundOn, setIsSoundOn, isPathR
         }
 
         return () => cancelAnimationFrame(animationFrame);
-    }, [hotAirData?.status]);
+    }, [hotAirData?.status, stageSize]);
 
     useEffect(() => {
         let animationFrame;
@@ -499,11 +855,11 @@ function AviatorFlight({ changeBg, setChangeBg, isSoundOn, setIsSoundOn, isPathR
         return () => cancelAnimationFrame(animationFrame);
     }, [hotAirData?.status]);
 
-    const linePoints = trajectoryPoints.flatMap((p) => [p.x, parentRef.current?.clientHeight - p.y]);
+    const linePoints = trajectoryPoints.flatMap((p) => [p.x, (stageSize.height || 600) - p.y]);
     const filledPolygon = [
-        0, parentRef.current?.clientHeight || 0,
+        0, stageSize.height || 600,
         ...linePoints,
-        trajectoryPoints.length ? trajectoryPoints.at(-1).x : 0, parentRef.current?.clientHeight || 0,
+        trajectoryPoints.length ? trajectoryPoints.at(-1).x : 0, stageSize.height || 600,
     ];
 
     // Background image selection
@@ -521,7 +877,7 @@ function AviatorFlight({ changeBg, setChangeBg, isSoundOn, setIsSoundOn, isPathR
     const bgImage = getBackground();
 
     return (
-        <div ref={parentRef} className="h-full relative border-[0.2px] overflow-hidden border-gray rounded-2xl">
+        <div ref={parentRef} className="h-full w-full relative border-[0.2px] overflow-hidden border-gray rounded-2xl">
             
             {/* Modal Overlay */}
             {isModalOpen && (
@@ -557,8 +913,8 @@ function AviatorFlight({ changeBg, setChangeBg, isSoundOn, setIsSoundOn, isPathR
 
             {/* Konva Stage for Trajectory */}
             <Stage 
-                width={parentRef.current?.clientWidth || 800} 
-                height={parentRef.current?.clientHeight || 600} 
+                width={stageSize.width} 
+                height={stageSize.height} 
                 className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 z-40 pointer-events-none"
             >
                 <Layer>

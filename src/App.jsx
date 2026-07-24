@@ -93,7 +93,10 @@ function App() {
               element={
                 <PublicRoute>
                   <div className="bg-black">
-                    <AviatorHome />
+                    
+                    <div className="overflow-hidden bg-black">
+                    <AvitatorLayout component={<AviatorHome />} />
+                  </div>
                   </div>
 
                 </PublicRoute>

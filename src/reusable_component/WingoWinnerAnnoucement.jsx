@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 
-import winnerANouncement from "../assets/usaAsset/wingo/win_go_win_bg.png"
-import LooseANouncement from "../assets/images/wingolostimage.png"
-import celebration from "../assets/images/celebration.gif";
+import winnerANouncement from "../assets/wingo/win_go_win_bg.png"
+import LooseANouncement from "../assets/wingo/wingolostimage.png"
+import celebration from "../assets/wingo/celebration.gif";
 import { ImCross } from "react-icons/im";
 import { FaCheckCircle, FaRegCircle } from "react-icons/fa";
 import { useEffect, useState } from "react";

@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 import { FiAlignJustify } from "react-icons/fi";
 import { useProfile } from "../reusable_component/gameApi";
-import usawinlogo from "../assets/headerLogo-removebg.png";
 import { motion } from "framer-motion";
 import { AiTwotoneSound } from "react-icons/ai";
 import { IoToggleSharp, IoWallet } from "react-icons/io5";
@@ -10,15 +9,15 @@ import { PiToggleLeftFill } from "react-icons/pi";
 import { FaEdit } from "react-icons/fa";
 import { TiTick } from "react-icons/ti";
 import { RiDeleteBack2Fill } from "react-icons/ri";
-import bg_one from "../assets/usaAsset/aviator/bg_one.png";
-import bg_two from "../assets/usaAsset/aviator/bg_two.png";
-import bg_three from "../assets/usaAsset/aviator/bg_three.png";
-import bg_four from "../assets/usaAsset/aviator/bg_four.png";
-import bg_five from "../assets/usaAsset/aviator/bg_five.png";
+import bg_one from "../assets/aviator/bg_one.png";
+import bg_two from "../assets/aviator/bg_two.png";
+import bg_three from "../assets/aviator/bg_three.png";
+import bg_four from "../assets/aviator/bg_four.png";
+import bg_five from "../assets/aviator/bg_five.png";
 import backgroundMusic from "../assets/music/backgroundMusic.mp3";
 import crashmusic from "../assets/music/crashmusic.mp3";
 import { socket } from "./AviatorSocket";
-import chakra from "../assets/usaAsset/aviator/chakra.png";
+import chakra from "../assets/aviator/chakra.png";
 import { useNavigate } from "react-router-dom";
 import HowToPlayModal from "./HowTOPlay"
 

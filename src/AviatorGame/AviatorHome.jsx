@@ -160,6 +160,186 @@
 
 // export default AviatorHome
 
+// import AviatorHeader from './AviatorHeader'
+// import HeightListBar from './HeightListBar'
+// import AviatorFlight from './AviatorFlight'
+// import BetSection from './BetSection'
+// import AllBetsHome from './AllBetsHome'
+// import { useEffect, useState } from 'react'
+// import { IoCaretDownSharp, IoCaretUpSharp } from "react-icons/io5";
+// import { GrRefresh } from "react-icons/gr";
+// import axios from 'axios'
+// import { socket } from './AviatorSocket'
+// import { configModalUsaWin } from '../utils/apis'
+// import { useProfile } from "../reusable_component/gameApi";
+// import { toast } from 'react-toastify';
+
+// function AviatorHome() {
+//   const [isPathRemoved, setIsPathRemoved] = useState(false);
+//   const [isSoundOn, setIsSoundOn] = useState(true);
+//   const [changeBg, setChangeBg] = useState({modal:false, selectBg:false, image:""});
+//   const [openHeightListModal, setOpenHeightListModal] = useState(false)
+//   const [refreshHeightList, setRefreshHeightList] = useState(false)
+//   const [betApiHitted, setBetApiHitted] = useState({ 
+//     cancel1: false, 
+//     cancel2: false, 
+//     bet1: false, 
+//     bet2: false, 
+//     cashout1: false, 
+//     cashout2: false 
+//   })
+//   const [btn, setBtn] = useState({ btn1: false, btn2: false })
+//   const [getData, setGetData] = useState(null)
+//   const [hotAirData, setHotAirData] = useState(null);
+  
+//   useEffect(() => {
+//     const handleSocket = (hotair) => {
+//       const q = JSON.parse(hotair);
+//       setHotAirData(q);
+//     };
+
+//     socket.on("demobdg_aviator", handleSocket);
+//     return () => socket.off("demobdg_aviator", handleSocket);
+//   }, []);
+  
+//   const getPreviousResult = async () => {
+//     try {
+//       const res = await axios.get(`${configModalUsaWin}aviator_last_five_result`)
+//       if (res?.data?.status === 200 || res?.data?.status === "200") {
+//         setGetData(res?.data?.data)
+//       }
+//     } catch (err) {
+//       toast.error(err?.response?.data?.message || "Something went wrong");
+//     } finally {
+//       setRefreshHeightList(false)
+//     }
+//   }
+  
+//   useEffect(() => {
+//     getPreviousResult()
+//   }, [refreshHeightList])
+  
+//   const colors = ["text-[#F85050]", "text-blue-500", "text-green", "text-yellow", "text-purple-500", "text-pink-500"];
+
+//   const userId = localStorage.getItem("userId");
+//   const { myDetails, loading, error, fetchProfileDetails } = useProfile(userId);
+  
+//   return ( 
+//     <>
+//       <AviatorHeader
+//         betApiHitted={betApiHitted}
+//         changeBg={changeBg}
+//         setChangeBg={setChangeBg}
+//         isSoundOn={isSoundOn}
+//         setIsSoundOn={setIsSoundOn}
+//         isPathRemoved={isPathRemoved}
+//         setIsPathRemoved={setIsPathRemoved}
+//       />
+      
+//       {/* Main Container - Fixed Phone Size (360px to 480px) */}
+//       <div className="flex justify-center items-start w-full min-h-screen bg-red">
+//         <div className="w-full max-w-105 min-h-screen px-2 pt-2">
+          
+//           {/* Content - Mobile Layout (Vertical) */}
+//           <div className="flex flex-col text-black gap-2">
+            
+//             {/* Aviator Game Section */}
+//             <div className="w-full rounded-md">
+              
+//               {/* HeightListBar with Refresh Button */}
+//               <div className="w-full flex items-center gap-2">
+//                 <div className="flex-1 min-w-0">
+//                   <HeightListBar
+//                     hotAirData={hotAirData}
+//                     betApiHitted={betApiHitted}
+//                     refreshHeightList={refreshHeightList}
+//                     setRefreshHeightList={setRefreshHeightList}
+//                   />
+//                 </div>
+//                 <div className="flex items-center gap-1 border border-gray-500 bg-blackAviator2 px-2 py-0.5 rounded-full shrink-0">
+//                   <button
+//                     onClick={() => setRefreshHeightList(true)}
+//                     className="text-gray-400 hover:text-white transition-colors"
+//                   >
+//                     <GrRefresh size={16} />
+//                   </button>
+//                   <button
+//                     onClick={() => setOpenHeightListModal(!openHeightListModal)}
+//                     className="text-gray-400 hover:text-white transition-colors"
+//                   >
+//                     {openHeightListModal ? (
+//                       <IoCaretDownSharp size={16} />
+//                     ) : (
+//                       <IoCaretUpSharp size={16} />
+//                     )}
+//                   </button>
+//                 </div>
+//               </div>
+              
+//               {/* Round ID */}
+//               <div className="w-full text-[11px] flex items-center justify-between text-gray-400 mt-1">
+//                 <p>Round ID: {hotAirData?.period || '---'}</p>
+//                 <p></p>
+//               </div>
+              
+//               {/* Flight Game */}
+//               <div className="mt-2 bg-blackAviator2 rounded-2xl h-80 sm:h-95 relative overflow-hidden">
+//                 <AviatorFlight
+//                   changeBg={changeBg}
+//                   setChangeBg={setChangeBg}
+//                   isSoundOn={isSoundOn}
+//                   setIsSoundOn={setIsSoundOn}
+//                   isPathRemoved={isPathRemoved}
+//                   setIsPathRemoved={setIsPathRemoved}
+//                 />
+//               </div>
+//             </div>
+            
+//             {/* Bet Section */}
+//             <div className="pt-3 mt-1">
+//               <BetSection
+//                 setBtn={setBtn}
+//                 setBetApiHitted={setBetApiHitted}
+//                 myDetails={myDetails}
+//               />
+//             </div>
+
+//             {/* All Bets Section - Full Width on Mobile */}
+//             <div className="w-full mt-2 p-2 rounded-md bg-blackAviator2">
+//               <AllBetsHome betApiHitted={betApiHitted} />
+//             </div>
+            
+//           </div>
+          
+//         </div>
+//       </div>
+
+//       {/* Height List Modal */}
+//       {openHeightListModal && (
+//         <div className="fixed inset-0 z-50 flex items-start justify-center pt-16">
+//           <div 
+//             className="bg-black/90 backdrop-blur-sm rounded-lg shadow-xl p-3 w-[90%] max-w-95 max-h-48 overflow-y-auto"
+//             onClick={(e) => e.stopPropagation()}
+//           >
+//             <p className="text-white font-semibold text-sm mb-2">Round History</p>
+//             <div className="flex flex-wrap gap-1.5">
+//               {getData?.map((item, i) => (
+//                 <div
+//                   key={i}
+//                   className={`bg-blackAviator2 rounded-full px-3 py-0.5 text-[11px] ${colors[i % colors.length]}`}
+//                 >
+//                   {item?.price}
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </>
+//   );
+// }
+
+// export default AviatorHome;
 import AviatorHeader from './AviatorHeader'
 import HeightListBar from './HeightListBar'
 import AviatorFlight from './AviatorFlight'
@@ -169,7 +349,7 @@ import { useEffect, useState } from 'react'
 import { IoCaretDownSharp, IoCaretUpSharp } from "react-icons/io5";
 import { GrRefresh } from "react-icons/gr";
 import axios from 'axios'
-import { socket } from './AviatorSocket'
+import { socket } from './AviatorSocket' 
 import { configModalUsaWin } from '../utils/apis'
 import { useProfile } from "../reusable_component/gameApi";
 import { toast } from 'react-toastify';
@@ -236,18 +416,18 @@ function AviatorHome() {
         setIsPathRemoved={setIsPathRemoved}
       />
       
-      {/* Main Container - Fixed Phone Size (360px to 480px) */}
-      <div className="flex justify-center items-start w-full min-h-screen bg-red">
-        <div className="w-full max-w-105 min-h-screen px-2 pt-2">
+      {/* Main Container - FULL SCREEN */}
+      <div className="flex justify-center items-start w-full h-screen bg-red overflow-hidden">
+        <div className="w-full h-full max-w-full px-2 pt-2 flex flex-col">
           
-          {/* Content - Mobile Layout (Vertical) */}
-          <div className="flex flex-col text-black gap-2">
+          {/* Content - Full Height Flex Column */}
+          <div className="flex flex-col text-black gap-1 flex-1 min-h-0">
             
-            {/* Aviator Game Section */}
-            <div className="w-full rounded-md">
+            {/* Aviator Game Section - Takes remaining space */}
+            <div className="w-full flex-1 flex flex-col min-h-0">
               
               {/* HeightListBar with Refresh Button */}
-              <div className="w-full flex items-center gap-2">
+              <div className="w-full flex items-center gap-2 shrink-0">
                 <div className="flex-1 min-w-0">
                   <HeightListBar
                     hotAirData={hotAirData}
@@ -277,13 +457,13 @@ function AviatorHome() {
               </div>
               
               {/* Round ID */}
-              <div className="w-full text-[11px] flex items-center justify-between text-gray-400 mt-1">
+              <div className="w-full text-[11px] flex items-center justify-between text-gray-400 shrink-0">
                 <p>Round ID: {hotAirData?.period || '---'}</p>
                 <p></p>
               </div>
               
-              {/* Flight Game */}
-              <div className="mt-2 bg-blackAviator2 rounded-2xl h-80 sm:h-95 relative overflow-hidden">
+              {/* Flight Game - Fills remaining space */}
+              <div className="flex-1 min-h-0 mt-1 bg-blackAviator2 rounded-2xl relative overflow-hidden">
                 <AviatorFlight
                   changeBg={changeBg}
                   setChangeBg={setChangeBg}
@@ -295,8 +475,8 @@ function AviatorHome() {
               </div>
             </div>
             
-            {/* Bet Section */}
-            <div className="pt-3 mt-1">
+            {/* Bet Section - Fixed height */}
+            <div className="shrink-0 pt-1">
               <BetSection
                 setBtn={setBtn}
                 setBetApiHitted={setBetApiHitted}
@@ -304,8 +484,8 @@ function AviatorHome() {
               />
             </div>
 
-            {/* All Bets Section - Full Width on Mobile */}
-            <div className="w-full mt-2 p-2 rounded-md bg-blackAviator2">
+            {/* All Bets Section - Fixed height */}
+            <div className="w-full shrink-0 p-2 rounded-md bg-blackAviator2 h-36 sm:h-40">
               <AllBetsHome betApiHitted={betApiHitted} />
             </div>
             
